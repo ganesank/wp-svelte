@@ -2,33 +2,29 @@
   import { onMount } from "svelte";
 
   let images = [];
-  
+
   export let image;
   export let size;
 
   export let alt;
   const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/media/" + image;
-  let src = '';
+  let src = "";
   onMount(async function() {
-    console.log("role", apiUrl);
-    const response = await fetch(apiUrl);
-    images = await response.json();
-    if(images && images.media_details && images.media_details.sizes){
-     src = images.media_details.sizes[size].source_url
-    }
-    console.log(src);
+    if (image) {
+      const response = await fetch(apiUrl);
+      images = await response.json();
+      if (images && images.media_details && images.media_details.sizes && images.media_details.sizes[size]) {
+        src = images.media_details.sizes[size].source_url || '';
+      }
+    } 
   });
 </script>
 
 {#if src}
-  <img
-    src={src}
-    alt={alt}
-    class="img-fluid"/>
+  <img {src} {alt} class="img-fluid" />
 {:else}
   <img
-    src={`http://placehold.jp/24/cccccc/ffffff/800x500.png?text=${alt}`}
-    alt={alt}
-    class="img-fluid"
-    />
+    src={`http://placehold.jp/24/dc3545/ffffff/800x500.png?text=${alt}`}
+    {alt}
+    class="img-fluid" />
 {/if}

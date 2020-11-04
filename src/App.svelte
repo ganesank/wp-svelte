@@ -3,7 +3,10 @@
   import AOS from "aos";
   import Image from "svelte-image";
   import Home from "./routes/Home.svelte";
+  import Page from "./routes/Page.svelte";
+  import Blog from "./routes/Blog.svelte";
   import Post from "./routes/Post.svelte";
+  import Portfolio from "./routes/Portfolio.svelte";
   import Public from "./routes/Public.svelte";
   import Protected from "./routes/Protected.svelte";
   import NotFound from "./routes/NotFound.svelte";
@@ -78,8 +81,12 @@
       <div class="row">
         <div class="col-sm-3 col-3">
           <div class="site-logo">
-            
-            <a href="index.html" class="animsition-link">Ganesan</a>
+
+            <Router>
+
+              <Link css="animsition-link" to="/">Ganesan</Link>
+
+            </Router>
           </div>
         </div>
         <div class="col-sm-9 col-9 text-right">
@@ -92,13 +99,30 @@
           </button>
           <nav class="templateux-menu js-templateux-menu" role="navigation">
             <ul class="list-unstyled">
-              <li class="d-md-none d-block active">
-                <a href="index.html" class="animsition-link">Home</a>
-              </li>
-              <li>
-                <a href="work.html" class="animsition-link">Work</a>
-              </li>
-           
+
+              <Router>
+
+                <li class="d-md-none d-block active">
+                  <Link css="animsition-link" to="/">Home</Link>
+                </li>
+                <li>
+                  <Link css="animsition-link" to="/page/about">About</Link>
+                </li>
+                <li>
+                  <Link css="animsition-link" to="/page/services">
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link css="animsition-link" to="/portfolio">Works</Link>
+                </li>
+                <li>
+                  <Link css="animsition-link" to="/blog">Blog</Link>
+                </li>
+                <li>
+                  <Link css="animsition-link" to="/contact">Contact</Link>
+                </li>
+              </Router>
             </ul>
           </nav>
         </div>
@@ -107,7 +131,12 @@
   </header>
   <Router>
     <Route path="/preface" component={Public} />
+    <Route path="/page/:id" component={Page} />
+    <Route path="/blog" component={Blog} />
+    <Route path="/blog/:page" component={Blog} />
     <Route path="/post/:id" component={Post} />
+    <Route path="/portfolio" component={Portfolio} />
+    <Route path="/portfolio/:id" component={Portfolio} />
     <Route path="/letter" component={Protected} />
     <Route path="/" component={Home} />
   </Router>

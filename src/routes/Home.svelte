@@ -169,7 +169,7 @@
             {#each portfolio as post}
               <div class="col-lg-6">
                 <Link
-                  to={`portfolio/${post.id}`}
+                  to={`portfolio/${post.slug}`}
                   css="post animsition-link aos-init"
                   href="blog-single.html"
                   data-aos="fade-up"
@@ -224,7 +224,7 @@
             {#each posts as post}
               <div class="col-lg-6">
                 <Link
-                  to={`post/${post.id}`}
+                  to={`post/${post.slug}`}
                   css="post animsition-link aos-init"
                   href="blog-single.html"
                   data-aos="fade-up"

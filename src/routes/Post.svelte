@@ -1,19 +1,22 @@
 <script>
   import { navigate } from "svelte-routing";
   import { onMount } from "svelte";
+  import moment from "moment";
   import { redirectURL } from "../store.js";
 
   import Comments from "../common/Comments.svelte";
+  import AuthorName from "../common/AuthorName.svelte";
   export let id;
   let data = [];
 
   let y;
   let x;
-  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts/" + id;
+  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts?slug=" + id;
   onMount(async function() {
     console.log("role", apiUrl);
     const response = await fetch(apiUrl);
-    data = await response.json();
+    const dataArr = await response.json();
+      data = dataArr[0];
     console.log(data);
   });
 </script>
@@ -22,15 +25,16 @@
 <svelte:head>
   <title>Home Page</title>
 </svelte:head>
+{#if data.title}
 <section class="templateux-hero" data-scrollax-parent="true">
   <!-- <div class="cover" data-scrollax="properties: { translateY: '30%' }"><img src="images/hero_2.jpg" /></div> -->
   <div class="container">
     <div class="row align-items-center justify-content-center intro">
       <div class="col-md-12 aos-init aos-animate" data-aos="fade-up">
         <div class="post-meta">
-          <span>Posted in July 2, 2018</span>
+          <span>Posted in  {moment(data.date).format('MMM DD, YYYY')}</span>
           <span class="sep">•</span>
-          <span>Posted by Josh Archibald</span>
+          <span>Posted by  <AuthorName author={data.author} /></span>
         </div>
         <h1>
           {#if data.title}
@@ -141,4 +145,4 @@
     </div>
   </div>
 </section>
-<section class="letter" />
+{/if}
