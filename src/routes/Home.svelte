@@ -1,20 +1,26 @@
 <script>
-  import { navigate ,Link} from "svelte-routing";
+  import { navigate, Link } from "svelte-routing";
   import { onMount } from "svelte";
   import moment from "moment";
   import { redirectURL } from "../store.js";
 
   import PostImage from "../common/PostImage.svelte";
   let posts = [];
-
+  let portfolio = [];
   let y;
   let x;
-  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts";
+  const postApiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts";
+  const portApiUrl = "http://ganesan.xyz/wp-json/wp/v2/portfolio";
   onMount(async function() {
-    console.log("role", apiUrl);
-    const response = await fetch(apiUrl);
-    const postsall = await response.json();
+    console.log("role", postApiUrl);
+    const postresponse = await fetch(postApiUrl);
+    const postsall = await postresponse.json();
     posts = postsall.slice(0, 6);
+
+
+    const portResponse = await fetch(portApiUrl);
+    const portsall = await portResponse.json();
+    portfolio = portsall.slice(0, 6);
   });
 </script>
 
@@ -27,7 +33,9 @@
     <div class="row align-items-center justify-content-center intro">
       <div class="col-md-10 aos-init aos-animate" data-aos="fade-up">
         <h1>
-          We are Strategy. A digitally minded creative agency based in NYC.
+          I'm Ganesan Karuppaiya
+          <br />
+          I build things for the web.
         </h1>
         <a href="#next" class="go-down js-smoothscroll" />
       </div>
@@ -38,7 +46,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-4 aos-init aos-animate" data-aos="fade-up">
-        <h2 class="section-heading mt-3">What We Do</h2>
+        <h2 class="section-heading mt-3">About me</h2>
       </div>
       <div
         class="col-md-8 aos-init aos-animate"
@@ -47,73 +55,36 @@
         <div class="row">
           <div class="col-md-12">
             <h2 class="mb-5">
-              Far far away, behind the word mountains, far from the countries
-              Vokalia and Consonantia.
+              In Short, Creative Designer, UI/UX Designer & Full Stack Developer
             </h2>
           </div>
         </div>
         <div class="row pt-sm-0 pt-md-5 mb-5">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="media templateux-media mb-4">
               <div class="mr-4 icon">
                 <span class="icon-monitor display-3" />
               </div>
               <div class="media-body">
-                <h3 class="h5">Web Development</h3>
+                <h3 class="h5"> In Short</h3>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  I'm a UI/ UX engineer based in Chennai, IN. Specializing in
+                  building (and occasionally designing) exceptional,
+                  high-quality websites and applications with clean and sharp
+                  interfaces and innovator focusing business, users and success
                 </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="media templateux-media mb-4">
-              <div class="mr-4 icon">
-                <span class="icon-command display-3" />
-              </div>
-              <div class="media-body">
-                <h3 class="h5">Brand identity</h3>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  I enjoys building things that live on the internet. I develop
+                  exceptional websites and web apps that provide intuitive,
+                  pixel-perfect user interfaces with ,efficient and modern
+                  backends.
                 </p>
               </div>
             </div>
           </div>
         </div>
         <!-- END row -->
-        <div class="row clearfix">
-          <div class="col-lg-6">
-            <div class="media templateux-media mb-4">
-              <div class="mr-4 icon">
-                <span class="icon-feather display-3" />
-              </div>
-              <div class="media-body">
-                <h3 class="h5">Copywriting</h3>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="media templateux-media mb-4">
-              <div class="mr-4 icon">
-                <span class="icon-shopping-cart display-3" />
-              </div>
-              <div class="media-body">
-                <h3 class="h5">eCommerce</h3>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END row -->
+
       </div>
     </div>
   </div>
@@ -122,7 +93,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-4 aos-init aos-animate" data-aos="fade-up">
-        <h2 class="section-heading mt-3">What We Do</h2>
+        <h2 class="section-heading mt-3">What I Do</h2>
       </div>
       <div
         class="col-md-8 aos-init aos-animate"
@@ -131,187 +102,114 @@
         <div class="row">
           <div class="col-md-12">
             <h2 class="mb-5">
-              Far far away, behind the word mountains, far from the countries
-              Vokalia and Consonantia.
+              I develop exceptional websites and web apps that provide intuitive, pixel-perfect user interfaces with ,efficient and modern backends.
             </h2>
           </div>
         </div>
         <div class="row pt-sm-0 pt-md-5 mb-5">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="media templateux-media mb-4">
               <div class="mr-4 icon">
                 <span class="icon-monitor display-3" />
               </div>
               <div class="media-body">
-                <h3 class="h5">Web Development</h3>
+                <h3 class="h5">Designing and Branding</h3>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  Every great design starts with an simple idea and best way to present an idea is to visualise it. It makes your idea alive. In many cases, visualisation helps to understand the story of the business idea.  
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="media templateux-media mb-4">
               <div class="mr-4 icon">
                 <span class="icon-command display-3" />
               </div>
               <div class="media-body">
-                <h3 class="h5">Brand identity</h3>
+                <h3 class="h5">UI/ UX Development</h3>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  It’s very important that all the fundamental parts are well defined and working This is where problem solving meets visual impact. I’ll unite products and users, design and experiences.
                 </p>
               </div>
             </div>
           </div>
-        </div>
-        <!-- END row -->
-        <div class="row clearfix">
-          <div class="col-lg-6">
+     
+          <div class="col-lg-12">
             <div class="media templateux-media mb-4">
               <div class="mr-4 icon">
                 <span class="icon-feather display-3" />
               </div>
               <div class="media-body">
-                <h3 class="h5">Copywriting</h3>
+                <h3 class="h5">Rich Web Products</h3>
                 <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
+                  It doesn’t stop with design. I can develop your product from visual concept to fully functional website with defined standards.
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="media templateux-media mb-4">
-              <div class="mr-4 icon">
-                <span class="icon-shopping-cart display-3" />
-              </div>
-              <div class="media-body">
-                <h3 class="h5">eCommerce</h3>
-                <p>
-                  Far far away, behind the word mountains, far from the
-                  countries Vokalia and Consonantia, there live the blind texts.
-                </p>
-              </div>
-            </div>
-          </div>
+         
         </div>
         <!-- END row -->
       </div>
     </div>
   </div>
 </section>
-<section class="templateux-portfolio-overlap" id="next">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 aos-init aos-animate" data-aos="fade-up">
-        <a class="project animsition-link" href="work-single.html">
-          <figure>
 
-            <img
-              src="images/img_1.jpg"
-              alt="Free Template"
-              class="img-fluid"
-              data-pagespeed-url-hash="2601062986"
-              onload="pagespeed.CriticalImages.checkImageForCriticality(this);" />
-          </figure>
-          <div class="project-hover">
-            <div class="project-hover-inner">
-              <h2>Canvas Tote Bag</h2>
-              <span>View Case Study</span>
-            </div>
-          </div>
-        </a>
+<section class="templateux-section mb-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4 aos-init aos-animate" data-aos="fade-up">
+        <h2 class="section-heading mt-3"> Recent works</h2>
       </div>
-      <div
-        class="col-md-6 aos-init aos-animate"
-        data-aos="fade-up"
-        data-aos-delay="100">
-        <a class="project animsition-link" href="work-single.html">
-          <figure>
-            <img
-              src="images/img_2.jpg"
-              alt="Free Template"
-              class="img-fluid"
-              data-pagespeed-url-hash="2895562907"
-              onload="pagespeed.CriticalImages.checkImageForCriticality(this);" />
-          </figure>
-          <div class="project-hover">
-            <div class="project-hover-inner">
-              <h2>Work Hard, Play Hard</h2>
-              <span>View Case Study</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <!-- END row -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up">
-        <a class="project animsition-link" href="work-single.html">
-          <figure>
-            <img
-              src="images/img_3.jpg"
-              alt="Free Template"
-              class="img-fluid"
-              data-pagespeed-url-hash="3190062828"
-              onload="pagespeed.CriticalImages.checkImageForCriticality(this);" />
-          </figure>
-          <div class="project-hover">
-            <div class="project-hover-inner">
-              <h2>Moon High Res</h2>
-              <span>View Case Study</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div
-        class="col-lg-4 col-md-6 aos-init aos-animate"
-        data-aos="fade-up"
-        data-aos-delay="100">
-        <a class="project animsition-link" href="work-single.html">
-          <figure>
-            <img
-              src="images/img_4.jpg"
-              alt="Free Template"
-              class="img-fluid"
-              data-pagespeed-url-hash="3484562749"
-              onload="pagespeed.CriticalImages.checkImageForCriticality(this);" />
-          </figure>
-          <div class="project-hover">
-            <div class="project-hover-inner">
-              <h2>H20 Water Bottle</h2>
-              <span>View Case Study</span>
-            </div>
-          </div>
-        </a>
-      </div>
-      <div
-        class="col-lg-4 col-md-6 aos-init"
-        data-aos="fade-up"
-        data-aos-delay="200">
-        <a class="project animsition-link" href="work-single.html">
-          <figure>
-            <img
-              src="images/img_5.jpg"
-              alt="Free Template"
-              class="img-fluid"
-              data-pagespeed-url-hash="3779062670"
-              onload="pagespeed.CriticalImages.checkImageForCriticality(this);" />
-          </figure>
-          <div class="project-hover">
-            <div class="project-hover-inner">
-              <h2>Creatsy Mailing Box</h2>
-              <span>View Case Study</span>
-            </div>
-          </div>
-        </a>
+      <div class="col-md-8">
+
+        <div class="row">
+
+          {#if portfolio && portfolio.length > 0}
+            {#each portfolio as post}
+              <div class="col-lg-6">
+                <Link
+                  to={`portfolio/${post.id}`}
+                  css="post animsition-link aos-init"
+                  href="blog-single.html"
+                  data-aos="fade-up"
+                  data-aos-delay="200">
+                  <figure>
+                    <PostImage
+                      size="medium_large"
+                      image={post.featured_media}
+                      alt={post.title.rendered} />
+                  </figure>
+                  <div class="post-hover">
+                    <div class="post-hover-inner">
+                      <h2>
+                        {@html post.title.rendered}
+                      </h2>
+                      <span>
+                        {#if post.date}
+                          {moment(post.date).format('MMM DD, YYYY')}
+                        {/if}
+                      </span>
+
+                    </div>
+                  </div>
+
+                </Link>
+              </div>
+            {/each}
+          {/if}
+
+        </div>
       </div>
     </div>
-    <!-- END row -->
+    <div class="row aos-init" data-aos="fade-up" data-aos-delay="400">
+      <div class="col-md-8 ml-auto">
+        <a href="blog.html" class="animsition-link">Read All Blog Posts</a>
+      </div>
+    </div>
   </div>
 </section>
+
 <section class="templateux-section mb-5">
   <div class="container">
     <div class="row justify-content-center">
@@ -366,4 +264,3 @@
     </div>
   </div>
 </section>
-<section class="letter" />

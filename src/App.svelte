@@ -78,6 +78,7 @@
       <div class="row">
         <div class="col-sm-3 col-3">
           <div class="site-logo">
+            
             <a href="index.html" class="animsition-link">Ganesan</a>
           </div>
         </div>
@@ -97,15 +98,7 @@
               <li>
                 <a href="work.html" class="animsition-link">Work</a>
               </li>
-              <li>
-                <a href="about.html" class="animsition-link">About</a>
-              </li>
-              <li>
-                <a href="blog.html" class="animsition-link">Blog</a>
-              </li>
-              <li>
-                <a href="contact.html" class="animsition-link">Contact</a>
-              </li>
+           
             </ul>
           </nav>
         </div>
@@ -128,7 +121,11 @@
   <div class="container-fluid">
     <div class="cta-inner">
       <h2>
-        <span class="words-1">Have <b data-superlatives="">a {days[random]}</b>  day.</span>
+        <span class="words-1">
+          Have
+          <b data-superlatives="">a {days[random]}</b>
+          day.
+        </span>
         <span class="words-2">Let's chat we are good people.</span>
       </h2>
     </div>
@@ -139,7 +136,8 @@
     <div class="row">
       <div class="col-md-6 text-md-left text-center">
         <p>
-          What's Meant To Be Will Always Find Its Way <br/>
+          What's Meant To Be Will Always Find Its Way
+          <br />
           This page is designed, built on
           <a href="hhttps://svelte.dev/" target="_blank">Svelte</a>
           , and backed by

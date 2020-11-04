@@ -1868,7 +1868,7 @@ var app = (function () {
     			a = element("a");
     			if (default_slot) default_slot.c();
     			set_attributes(a, a_data);
-    			add_location(a, file, 40, 0, 1272);
+    			add_location(a, file, 40, 0, 1266);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1938,7 +1938,7 @@ var app = (function () {
     	let { replace = false } = $$props;
     	let { state = {} } = $$props;
     	let { getProps = () => ({}) } = $$props;
-    	let { css = "#" } = $$props;
+    	let { css } = $$props;
     	const { base } = getContext(ROUTER);
     	validate_store(base, "base");
     	component_subscribe($$self, base, value => $$invalidate(15, $base = value));
@@ -2085,6 +2085,13 @@ var app = (function () {
     			options,
     			id: create_fragment$2.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*css*/ ctx[0] === undefined && !("css" in props)) {
+    			console.warn("<Link> was created without expected prop 'css'");
+    		}
     	}
 
     	get to() {
@@ -9064,11 +9071,318 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
-    // (325:10) {#if posts && posts.length > 0}
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[6] = list[i];
+    	return child_ctx;
+    }
+
+    // (168:10) {#if portfolio && portfolio.length > 0}
+    function create_if_block_2(ctx) {
+    	let each_1_anchor;
+    	let current;
+    	let each_value_1 = /*portfolio*/ ctx[1];
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*portfolio, moment*/ 2) {
+    				each_value_1 = /*portfolio*/ ctx[1];
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_1.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_1.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(168:10) {#if portfolio && portfolio.length > 0}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (189:24) {#if post.date}
+    function create_if_block_3(ctx) {
+    	let t_value = moment(/*post*/ ctx[6].date).format("MMM DD, YYYY") + "";
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text(t_value);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*portfolio*/ 2 && t_value !== (t_value = moment(/*post*/ ctx[6].date).format("MMM DD, YYYY") + "")) set_data_dev(t, t_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_3.name,
+    		type: "if",
+    		source: "(189:24) {#if post.date}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (171:16) <Link                   to={`portfolio/${post.id}`}                   css="post animsition-link aos-init"                   href="blog-single.html"                   data-aos="fade-up"                   data-aos-delay="200">
+    function create_default_slot_1(ctx) {
+    	let figure;
+    	let postimage;
+    	let t0;
+    	let div1;
+    	let div0;
+    	let h2;
+    	let raw_value = /*post*/ ctx[6].title.rendered + "";
+    	let t1;
+    	let span;
+    	let current;
+
+    	postimage = new PostImage({
+    			props: {
+    				size: "medium_large",
+    				image: /*post*/ ctx[6].featured_media,
+    				alt: /*post*/ ctx[6].title.rendered
+    			},
+    			$$inline: true
+    		});
+
+    	let if_block = /*post*/ ctx[6].date && create_if_block_3(ctx);
+
+    	const block = {
+    		c: function create() {
+    			figure = element("figure");
+    			create_component(postimage.$$.fragment);
+    			t0 = space();
+    			div1 = element("div");
+    			div0 = element("div");
+    			h2 = element("h2");
+    			t1 = space();
+    			span = element("span");
+    			if (if_block) if_block.c();
+    			add_location(figure, file$4, 176, 18, 6257);
+    			add_location(h2, file$4, 184, 22, 6584);
+    			add_location(span, file$4, 187, 22, 6691);
+    			attr_dev(div0, "class", "post-hover-inner");
+    			add_location(div0, file$4, 183, 20, 6531);
+    			attr_dev(div1, "class", "post-hover");
+    			add_location(div1, file$4, 182, 18, 6486);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, figure, anchor);
+    			mount_component(postimage, figure, null);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, h2);
+    			h2.innerHTML = raw_value;
+    			append_dev(div0, t1);
+    			append_dev(div0, span);
+    			if (if_block) if_block.m(span, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const postimage_changes = {};
+    			if (dirty & /*portfolio*/ 2) postimage_changes.image = /*post*/ ctx[6].featured_media;
+    			if (dirty & /*portfolio*/ 2) postimage_changes.alt = /*post*/ ctx[6].title.rendered;
+    			postimage.$set(postimage_changes);
+    			if ((!current || dirty & /*portfolio*/ 2) && raw_value !== (raw_value = /*post*/ ctx[6].title.rendered + "")) h2.innerHTML = raw_value;
+    			if (/*post*/ ctx[6].date) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_3(ctx);
+    					if_block.c();
+    					if_block.m(span, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(postimage.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(postimage.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(figure);
+    			destroy_component(postimage);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(div1);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_1.name,
+    		type: "slot",
+    		source: "(171:16) <Link                   to={`portfolio/${post.id}`}                   css=\\\"post animsition-link aos-init\\\"                   href=\\\"blog-single.html\\\"                   data-aos=\\\"fade-up\\\"                   data-aos-delay=\\\"200\\\">",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (169:12) {#each portfolio as post}
+    function create_each_block_1(ctx) {
+    	let div;
+    	let link;
+    	let t;
+    	let current;
+
+    	link = new Link({
+    			props: {
+    				to: `portfolio/${/*post*/ ctx[6].id}`,
+    				css: "post animsition-link aos-init",
+    				href: "blog-single.html",
+    				"data-aos": "fade-up",
+    				"data-aos-delay": "200",
+    				$$slots: { default: [create_default_slot_1] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			create_component(link.$$.fragment);
+    			t = space();
+    			attr_dev(div, "class", "col-lg-6");
+    			add_location(div, file$4, 169, 14, 5975);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			mount_component(link, div, null);
+    			append_dev(div, t);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const link_changes = {};
+    			if (dirty & /*portfolio*/ 2) link_changes.to = `portfolio/${/*post*/ ctx[6].id}`;
+
+    			if (dirty & /*$$scope, portfolio*/ 2050) {
+    				link_changes.$$scope = { dirty, ctx };
+    			}
+
+    			link.$set(link_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(link.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(link.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_component(link);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(169:12) {#each portfolio as post}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (223:10) {#if posts && posts.length > 0}
     function create_if_block$3(ctx) {
     	let each_1_anchor;
     	let current;
@@ -9157,16 +9471,16 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(325:10) {#if posts && posts.length > 0}",
+    		source: "(223:10) {#if posts && posts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (346:24) {#if post.date}
+    // (244:24) {#if post.date}
     function create_if_block_1$1(ctx) {
-    	let t_value = moment(/*post*/ ctx[5].date).format("MMM DD, YYYY") + "";
+    	let t_value = moment(/*post*/ ctx[6].date).format("MMM DD, YYYY") + "";
     	let t;
 
     	const block = {
@@ -9177,7 +9491,7 @@ var app = (function () {
     			insert_dev(target, t, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*posts*/ 1 && t_value !== (t_value = moment(/*post*/ ctx[5].date).format("MMM DD, YYYY") + "")) set_data_dev(t, t_value);
+    			if (dirty & /*posts*/ 1 && t_value !== (t_value = moment(/*post*/ ctx[6].date).format("MMM DD, YYYY") + "")) set_data_dev(t, t_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
@@ -9188,14 +9502,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(346:24) {#if post.date}",
+    		source: "(244:24) {#if post.date}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (328:16) <Link                   to={`post/${post.id}`}                   css="post animsition-link aos-init"                   href="blog-single.html"                   data-aos="fade-up"                   data-aos-delay="200">
+    // (226:16) <Link                   to={`post/${post.id}`}                   css="post animsition-link aos-init"                   href="blog-single.html"                   data-aos="fade-up"                   data-aos-delay="200">
     function create_default_slot$1(ctx) {
     	let figure;
     	let postimage;
@@ -9203,7 +9517,7 @@ var app = (function () {
     	let div1;
     	let div0;
     	let h2;
-    	let raw_value = /*post*/ ctx[5].title.rendered + "";
+    	let raw_value = /*post*/ ctx[6].title.rendered + "";
     	let t1;
     	let span;
     	let current;
@@ -9211,13 +9525,13 @@ var app = (function () {
     	postimage = new PostImage({
     			props: {
     				size: "medium_large",
-    				image: /*post*/ ctx[5].featured_media,
-    				alt: /*post*/ ctx[5].title.rendered
+    				image: /*post*/ ctx[6].featured_media,
+    				alt: /*post*/ ctx[6].title.rendered
     			},
     			$$inline: true
     		});
 
-    	let if_block = /*post*/ ctx[5].date && create_if_block_1$1(ctx);
+    	let if_block = /*post*/ ctx[6].date && create_if_block_1$1(ctx);
 
     	const block = {
     		c: function create() {
@@ -9230,13 +9544,13 @@ var app = (function () {
     			t1 = space();
     			span = element("span");
     			if (if_block) if_block.c();
-    			add_location(figure, file$4, 333, 18, 11378);
-    			add_location(h2, file$4, 341, 22, 11705);
-    			add_location(span, file$4, 344, 22, 11812);
+    			add_location(figure, file$4, 231, 18, 7954);
+    			add_location(h2, file$4, 239, 22, 8281);
+    			add_location(span, file$4, 242, 22, 8388);
     			attr_dev(div0, "class", "post-hover-inner");
-    			add_location(div0, file$4, 340, 20, 11652);
+    			add_location(div0, file$4, 238, 20, 8228);
     			attr_dev(div1, "class", "post-hover");
-    			add_location(div1, file$4, 339, 18, 11607);
+    			add_location(div1, file$4, 237, 18, 8183);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, figure, anchor);
@@ -9253,11 +9567,11 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const postimage_changes = {};
-    			if (dirty & /*posts*/ 1) postimage_changes.image = /*post*/ ctx[5].featured_media;
-    			if (dirty & /*posts*/ 1) postimage_changes.alt = /*post*/ ctx[5].title.rendered;
+    			if (dirty & /*posts*/ 1) postimage_changes.image = /*post*/ ctx[6].featured_media;
+    			if (dirty & /*posts*/ 1) postimage_changes.alt = /*post*/ ctx[6].title.rendered;
     			postimage.$set(postimage_changes);
-    			if ((!current || dirty & /*posts*/ 1) && raw_value !== (raw_value = /*post*/ ctx[5].title.rendered + "")) h2.innerHTML = raw_value;
-    			if (/*post*/ ctx[5].date) {
+    			if ((!current || dirty & /*posts*/ 1) && raw_value !== (raw_value = /*post*/ ctx[6].title.rendered + "")) h2.innerHTML = raw_value;
+    			if (/*post*/ ctx[6].date) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -9292,14 +9606,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(328:16) <Link                   to={`post/${post.id}`}                   css=\\\"post animsition-link aos-init\\\"                   href=\\\"blog-single.html\\\"                   data-aos=\\\"fade-up\\\"                   data-aos-delay=\\\"200\\\">",
+    		source: "(226:16) <Link                   to={`post/${post.id}`}                   css=\\\"post animsition-link aos-init\\\"                   href=\\\"blog-single.html\\\"                   data-aos=\\\"fade-up\\\"                   data-aos-delay=\\\"200\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (326:12) {#each posts as post}
+    // (224:12) {#each posts as post}
     function create_each_block(ctx) {
     	let div;
     	let link;
@@ -9308,7 +9622,7 @@ var app = (function () {
 
     	link = new Link({
     			props: {
-    				to: `post/${/*post*/ ctx[5].id}`,
+    				to: `post/${/*post*/ ctx[6].id}`,
     				css: "post animsition-link aos-init",
     				href: "blog-single.html",
     				"data-aos": "fade-up",
@@ -9325,7 +9639,7 @@ var app = (function () {
     			create_component(link.$$.fragment);
     			t = space();
     			attr_dev(div, "class", "col-lg-6");
-    			add_location(div, file$4, 326, 14, 11101);
+    			add_location(div, file$4, 224, 14, 7677);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9335,9 +9649,9 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const link_changes = {};
-    			if (dirty & /*posts*/ 1) link_changes.to = `post/${/*post*/ ctx[5].id}`;
+    			if (dirty & /*posts*/ 1) link_changes.to = `post/${/*post*/ ctx[6].id}`;
 
-    			if (dirty & /*$$scope, posts*/ 257) {
+    			if (dirty & /*$$scope, posts*/ 2049) {
     				link_changes.$$scope = { dirty, ctx };
     			}
 
@@ -9362,7 +9676,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(326:12) {#each posts as post}",
+    		source: "(224:12) {#each posts as post}",
     		ctx
     	});
 
@@ -9383,199 +9697,110 @@ var app = (function () {
     	let div1;
     	let div0;
     	let h1;
+    	let t1;
+    	let br;
     	let t2;
-    	let a0;
     	let t3;
+    	let a0;
+    	let t4;
     	let section1;
-    	let div26;
-    	let div25;
+    	let div13;
+    	let div12;
     	let div3;
     	let h20;
-    	let t5;
-    	let div24;
+    	let t6;
+    	let div11;
     	let div5;
     	let div4;
     	let h21;
-    	let t7;
-    	let div14;
+    	let t8;
+    	let div10;
     	let div9;
     	let div8;
     	let div6;
     	let span0;
-    	let t8;
+    	let t9;
     	let div7;
     	let h30;
-    	let t10;
+    	let t11;
     	let p0;
-    	let t12;
-    	let div13;
-    	let div12;
-    	let div10;
-    	let span1;
     	let t13;
-    	let div11;
-    	let h31;
-    	let t15;
     	let p1;
-    	let t17;
-    	let div23;
-    	let div18;
-    	let div17;
-    	let div15;
-    	let span2;
-    	let t18;
-    	let div16;
-    	let h32;
-    	let t20;
-    	let p2;
-    	let t22;
-    	let div22;
-    	let div21;
-    	let div19;
-    	let span3;
-    	let t23;
-    	let div20;
-    	let h33;
-    	let t25;
-    	let p3;
-    	let t27;
+    	let t15;
     	let section2;
-    	let div50;
-    	let div49;
-    	let div27;
-    	let h22;
-    	let t29;
-    	let div48;
-    	let div29;
-    	let div28;
-    	let h23;
-    	let t31;
-    	let div38;
-    	let div33;
     	let div32;
-    	let div30;
-    	let span4;
-    	let t32;
     	let div31;
-    	let h34;
-    	let t34;
+    	let div14;
+    	let h22;
+    	let t17;
+    	let div30;
+    	let div16;
+    	let div15;
+    	let h23;
+    	let t19;
+    	let div29;
+    	let div20;
+    	let div19;
+    	let div17;
+    	let span1;
+    	let t20;
+    	let div18;
+    	let h31;
+    	let t22;
+    	let p2;
+    	let t24;
+    	let div24;
+    	let div23;
+    	let div21;
+    	let span2;
+    	let t25;
+    	let div22;
+    	let h32;
+    	let t27;
+    	let p3;
+    	let t29;
+    	let div28;
+    	let div27;
+    	let div25;
+    	let span3;
+    	let t30;
+    	let div26;
+    	let h33;
+    	let t32;
     	let p4;
-    	let t36;
-    	let div37;
+    	let t34;
+    	let section3;
+    	let div39;
     	let div36;
-    	let div34;
-    	let span5;
-    	let t37;
+    	let div33;
+    	let h24;
+    	let t36;
     	let div35;
-    	let h35;
+    	let div34;
+    	let t37;
+    	let div38;
+    	let div37;
+    	let a1;
     	let t39;
-    	let p5;
+    	let section4;
+    	let div46;
+    	let div43;
+    	let div40;
+    	let h25;
     	let t41;
-    	let div47;
     	let div42;
     	let div41;
-    	let div39;
-    	let span6;
     	let t42;
-    	let div40;
-    	let h36;
-    	let t44;
-    	let p6;
-    	let t46;
-    	let div46;
     	let div45;
-    	let div43;
-    	let span7;
-    	let t47;
     	let div44;
-    	let h37;
-    	let t49;
-    	let p7;
-    	let t51;
-    	let section3;
-    	let div68;
-    	let div57;
-    	let div53;
-    	let a1;
-    	let figure0;
-    	let img0;
-    	let img0_src_value;
-    	let t52;
-    	let div52;
-    	let div51;
-    	let h24;
-    	let t54;
-    	let span8;
-    	let t56;
-    	let div56;
     	let a2;
-    	let figure1;
-    	let img1;
-    	let img1_src_value;
-    	let t57;
-    	let div55;
-    	let div54;
-    	let h25;
-    	let t59;
-    	let span9;
-    	let t61;
-    	let div67;
-    	let div60;
-    	let a3;
-    	let figure2;
-    	let img2;
-    	let img2_src_value;
-    	let t62;
-    	let div59;
-    	let div58;
-    	let h26;
-    	let t64;
-    	let span10;
-    	let t66;
-    	let div63;
-    	let a4;
-    	let figure3;
-    	let img3;
-    	let img3_src_value;
-    	let t67;
-    	let div62;
-    	let div61;
-    	let h27;
-    	let t69;
-    	let span11;
-    	let t71;
-    	let div66;
-    	let a5;
-    	let figure4;
-    	let img4;
-    	let img4_src_value;
-    	let t72;
-    	let div65;
-    	let div64;
-    	let h28;
-    	let t74;
-    	let span12;
-    	let t76;
-    	let section4;
-    	let div75;
-    	let div72;
-    	let div69;
-    	let h29;
-    	let t78;
-    	let div71;
-    	let div70;
-    	let t79;
-    	let div74;
-    	let div73;
-    	let a6;
-    	let t81;
-    	let section5;
     	let current;
     	let mounted;
     	let dispose;
-    	add_render_callback(/*onwindowresize*/ ctx[3]);
-    	add_render_callback(/*onwindowscroll*/ ctx[4]);
-    	let if_block = /*posts*/ ctx[0] && /*posts*/ ctx[0].length > 0 && create_if_block$3(ctx);
+    	add_render_callback(/*onwindowresize*/ ctx[4]);
+    	add_render_callback(/*onwindowscroll*/ ctx[5]);
+    	let if_block0 = /*portfolio*/ ctx[1] && /*portfolio*/ ctx[1].length > 0 && create_if_block_2(ctx);
+    	let if_block1 = /*posts*/ ctx[0] && /*posts*/ ctx[0].length > 0 && create_if_block$3(ctx);
 
     	const block = {
     		c: function create() {
@@ -9585,523 +9810,284 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			h1 = element("h1");
-    			h1.textContent = "We are Strategy. A digitally minded creative agency based in NYC.";
-    			t2 = space();
-    			a0 = element("a");
+    			t1 = text("I'm Ganesan Karuppaiya\n          ");
+    			br = element("br");
+    			t2 = text("\n          I build things for the web.");
     			t3 = space();
+    			a0 = element("a");
+    			t4 = space();
     			section1 = element("section");
-    			div26 = element("div");
-    			div25 = element("div");
+    			div13 = element("div");
+    			div12 = element("div");
     			div3 = element("div");
     			h20 = element("h2");
-    			h20.textContent = "What We Do";
-    			t5 = space();
-    			div24 = element("div");
+    			h20.textContent = "About me";
+    			t6 = space();
+    			div11 = element("div");
     			div5 = element("div");
     			div4 = element("div");
     			h21 = element("h2");
-    			h21.textContent = "Far far away, behind the word mountains, far from the countries\n              Vokalia and Consonantia.";
-    			t7 = space();
-    			div14 = element("div");
+    			h21.textContent = "In Short, Creative Designer, UI/UX Designer & Full Stack Developer";
+    			t8 = space();
+    			div10 = element("div");
     			div9 = element("div");
     			div8 = element("div");
     			div6 = element("div");
     			span0 = element("span");
-    			t8 = space();
+    			t9 = space();
     			div7 = element("div");
     			h30 = element("h3");
-    			h30.textContent = "Web Development";
-    			t10 = space();
+    			h30.textContent = "In Short";
+    			t11 = space();
     			p0 = element("p");
-    			p0.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t12 = space();
-    			div13 = element("div");
-    			div12 = element("div");
-    			div10 = element("div");
-    			span1 = element("span");
+    			p0.textContent = "I'm a UI/ UX engineer based in Chennai, IN. Specializing in\n                  building (and occasionally designing) exceptional,\n                  high-quality websites and applications with clean and sharp\n                  interfaces and innovator focusing business, users and success";
     			t13 = space();
-    			div11 = element("div");
-    			h31 = element("h3");
-    			h31.textContent = "Brand identity";
-    			t15 = space();
     			p1 = element("p");
-    			p1.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t17 = space();
-    			div23 = element("div");
-    			div18 = element("div");
-    			div17 = element("div");
-    			div15 = element("div");
-    			span2 = element("span");
-    			t18 = space();
-    			div16 = element("div");
-    			h32 = element("h3");
-    			h32.textContent = "Copywriting";
-    			t20 = space();
-    			p2 = element("p");
-    			p2.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t22 = space();
-    			div22 = element("div");
-    			div21 = element("div");
-    			div19 = element("div");
-    			span3 = element("span");
-    			t23 = space();
-    			div20 = element("div");
-    			h33 = element("h3");
-    			h33.textContent = "eCommerce";
-    			t25 = space();
-    			p3 = element("p");
-    			p3.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t27 = space();
+    			p1.textContent = "I enjoys building things that live on the internet. I develop\n                  exceptional websites and web apps that provide intuitive,\n                  pixel-perfect user interfaces with ,efficient and modern\n                  backends.";
+    			t15 = space();
     			section2 = element("section");
-    			div50 = element("div");
-    			div49 = element("div");
-    			div27 = element("div");
-    			h22 = element("h2");
-    			h22.textContent = "What We Do";
-    			t29 = space();
-    			div48 = element("div");
-    			div29 = element("div");
-    			div28 = element("div");
-    			h23 = element("h2");
-    			h23.textContent = "Far far away, behind the word mountains, far from the countries\n              Vokalia and Consonantia.";
-    			t31 = space();
-    			div38 = element("div");
-    			div33 = element("div");
     			div32 = element("div");
-    			div30 = element("div");
-    			span4 = element("span");
-    			t32 = space();
     			div31 = element("div");
-    			h34 = element("h3");
-    			h34.textContent = "Web Development";
-    			t34 = space();
+    			div14 = element("div");
+    			h22 = element("h2");
+    			h22.textContent = "What I Do";
+    			t17 = space();
+    			div30 = element("div");
+    			div16 = element("div");
+    			div15 = element("div");
+    			h23 = element("h2");
+    			h23.textContent = "I develop exceptional websites and web apps that provide intuitive, pixel-perfect user interfaces with ,efficient and modern backends.";
+    			t19 = space();
+    			div29 = element("div");
+    			div20 = element("div");
+    			div19 = element("div");
+    			div17 = element("div");
+    			span1 = element("span");
+    			t20 = space();
+    			div18 = element("div");
+    			h31 = element("h3");
+    			h31.textContent = "Designing and Branding";
+    			t22 = space();
+    			p2 = element("p");
+    			p2.textContent = "Every great design starts with an simple idea and best way to present an idea is to visualise it. It makes your idea alive. In many cases, visualisation helps to understand the story of the business idea.";
+    			t24 = space();
+    			div24 = element("div");
+    			div23 = element("div");
+    			div21 = element("div");
+    			span2 = element("span");
+    			t25 = space();
+    			div22 = element("div");
+    			h32 = element("h3");
+    			h32.textContent = "UI/ UX Development";
+    			t27 = space();
+    			p3 = element("p");
+    			p3.textContent = "It’s very important that all the fundamental parts are well defined and working This is where problem solving meets visual impact. I’ll unite products and users, design and experiences.";
+    			t29 = space();
+    			div28 = element("div");
+    			div27 = element("div");
+    			div25 = element("div");
+    			span3 = element("span");
+    			t30 = space();
+    			div26 = element("div");
+    			h33 = element("h3");
+    			h33.textContent = "Rich Web Products";
+    			t32 = space();
     			p4 = element("p");
-    			p4.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t36 = space();
-    			div37 = element("div");
+    			p4.textContent = "It doesn’t stop with design. I can develop your product from visual concept to fully functional website with defined standards.";
+    			t34 = space();
+    			section3 = element("section");
+    			div39 = element("div");
     			div36 = element("div");
-    			div34 = element("div");
-    			span5 = element("span");
-    			t37 = space();
+    			div33 = element("div");
+    			h24 = element("h2");
+    			h24.textContent = "Recent works";
+    			t36 = space();
     			div35 = element("div");
-    			h35 = element("h3");
-    			h35.textContent = "Brand identity";
+    			div34 = element("div");
+    			if (if_block0) if_block0.c();
+    			t37 = space();
+    			div38 = element("div");
+    			div37 = element("div");
+    			a1 = element("a");
+    			a1.textContent = "Read All Blog Posts";
     			t39 = space();
-    			p5 = element("p");
-    			p5.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
+    			section4 = element("section");
+    			div46 = element("div");
+    			div43 = element("div");
+    			div40 = element("div");
+    			h25 = element("h2");
+    			h25.textContent = "Recent Blog Posts";
     			t41 = space();
-    			div47 = element("div");
     			div42 = element("div");
     			div41 = element("div");
-    			div39 = element("div");
-    			span6 = element("span");
+    			if (if_block1) if_block1.c();
     			t42 = space();
-    			div40 = element("div");
-    			h36 = element("h3");
-    			h36.textContent = "Copywriting";
-    			t44 = space();
-    			p6 = element("p");
-    			p6.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t46 = space();
-    			div46 = element("div");
     			div45 = element("div");
-    			div43 = element("div");
-    			span7 = element("span");
-    			t47 = space();
     			div44 = element("div");
-    			h37 = element("h3");
-    			h37.textContent = "eCommerce";
-    			t49 = space();
-    			p7 = element("p");
-    			p7.textContent = "Far far away, behind the word mountains, far from the\n                  countries Vokalia and Consonantia, there live the blind texts.";
-    			t51 = space();
-    			section3 = element("section");
-    			div68 = element("div");
-    			div57 = element("div");
-    			div53 = element("div");
-    			a1 = element("a");
-    			figure0 = element("figure");
-    			img0 = element("img");
-    			t52 = space();
-    			div52 = element("div");
-    			div51 = element("div");
-    			h24 = element("h2");
-    			h24.textContent = "Canvas Tote Bag";
-    			t54 = space();
-    			span8 = element("span");
-    			span8.textContent = "View Case Study";
-    			t56 = space();
-    			div56 = element("div");
     			a2 = element("a");
-    			figure1 = element("figure");
-    			img1 = element("img");
-    			t57 = space();
-    			div55 = element("div");
-    			div54 = element("div");
-    			h25 = element("h2");
-    			h25.textContent = "Work Hard, Play Hard";
-    			t59 = space();
-    			span9 = element("span");
-    			span9.textContent = "View Case Study";
-    			t61 = space();
-    			div67 = element("div");
-    			div60 = element("div");
-    			a3 = element("a");
-    			figure2 = element("figure");
-    			img2 = element("img");
-    			t62 = space();
-    			div59 = element("div");
-    			div58 = element("div");
-    			h26 = element("h2");
-    			h26.textContent = "Moon High Res";
-    			t64 = space();
-    			span10 = element("span");
-    			span10.textContent = "View Case Study";
-    			t66 = space();
-    			div63 = element("div");
-    			a4 = element("a");
-    			figure3 = element("figure");
-    			img3 = element("img");
-    			t67 = space();
-    			div62 = element("div");
-    			div61 = element("div");
-    			h27 = element("h2");
-    			h27.textContent = "H20 Water Bottle";
-    			t69 = space();
-    			span11 = element("span");
-    			span11.textContent = "View Case Study";
-    			t71 = space();
-    			div66 = element("div");
-    			a5 = element("a");
-    			figure4 = element("figure");
-    			img4 = element("img");
-    			t72 = space();
-    			div65 = element("div");
-    			div64 = element("div");
-    			h28 = element("h2");
-    			h28.textContent = "Creatsy Mailing Box";
-    			t74 = space();
-    			span12 = element("span");
-    			span12.textContent = "View Case Study";
-    			t76 = space();
-    			section4 = element("section");
-    			div75 = element("div");
-    			div72 = element("div");
-    			div69 = element("div");
-    			h29 = element("h2");
-    			h29.textContent = "Recent Blog Posts";
-    			t78 = space();
-    			div71 = element("div");
-    			div70 = element("div");
-    			if (if_block) if_block.c();
-    			t79 = space();
-    			div74 = element("div");
-    			div73 = element("div");
-    			a6 = element("a");
-    			a6.textContent = "Read All Blog Posts";
-    			t81 = space();
-    			section5 = element("section");
+    			a2.textContent = "Read All Blog Posts";
     			document.title = "Home Page";
-    			add_location(h1, file$4, 28, 8, 841);
+    			add_location(br, file$4, 36, 10, 1136);
+    			add_location(h1, file$4, 34, 8, 1088);
     			attr_dev(a0, "href", "#next");
     			attr_dev(a0, "class", "go-down js-smoothscroll");
-    			add_location(a0, file$4, 31, 8, 944);
+    			add_location(a0, file$4, 39, 8, 1203);
     			attr_dev(div0, "class", "col-md-10 aos-init aos-animate");
     			attr_dev(div0, "data-aos", "fade-up");
-    			add_location(div0, file$4, 27, 6, 769);
+    			add_location(div0, file$4, 33, 6, 1016);
     			attr_dev(div1, "class", "row align-items-center justify-content-center intro");
-    			add_location(div1, file$4, 26, 4, 697);
+    			add_location(div1, file$4, 32, 4, 944);
     			attr_dev(div2, "class", "container");
-    			add_location(div2, file$4, 25, 2, 669);
+    			add_location(div2, file$4, 31, 2, 916);
     			attr_dev(section0, "class", "templateux-hero");
-    			add_location(section0, file$4, 24, 0, 633);
+    			add_location(section0, file$4, 30, 0, 880);
     			attr_dev(h20, "class", "section-heading mt-3");
-    			add_location(h20, file$4, 40, 8, 1224);
+    			add_location(h20, file$4, 48, 8, 1483);
     			attr_dev(div3, "class", "col-md-4 aos-init aos-animate");
     			attr_dev(div3, "data-aos", "fade-up");
-    			add_location(div3, file$4, 39, 6, 1153);
+    			add_location(div3, file$4, 47, 6, 1412);
     			attr_dev(h21, "class", "mb-5");
-    			add_location(h21, file$4, 48, 12, 1472);
+    			add_location(h21, file$4, 56, 12, 1729);
     			attr_dev(div4, "class", "col-md-12");
-    			add_location(div4, file$4, 47, 10, 1436);
+    			add_location(div4, file$4, 55, 10, 1693);
     			attr_dev(div5, "class", "row");
-    			add_location(div5, file$4, 46, 8, 1408);
+    			add_location(div5, file$4, 54, 8, 1665);
     			attr_dev(span0, "class", "icon-monitor display-3");
-    			add_location(span0, file$4, 58, 16, 1845);
+    			add_location(span0, file$4, 65, 16, 2067);
     			attr_dev(div6, "class", "mr-4 icon");
-    			add_location(div6, file$4, 57, 14, 1805);
+    			add_location(div6, file$4, 64, 14, 2027);
     			attr_dev(h30, "class", "h5");
-    			add_location(h30, file$4, 61, 16, 1961);
-    			add_location(p0, file$4, 62, 16, 2013);
+    			add_location(h30, file$4, 68, 16, 2183);
+    			add_location(p0, file$4, 69, 16, 2229);
+    			add_location(p1, file$4, 75, 16, 2575);
     			attr_dev(div7, "class", "media-body");
-    			add_location(div7, file$4, 60, 14, 1920);
+    			add_location(div7, file$4, 67, 14, 2142);
     			attr_dev(div8, "class", "media templateux-media mb-4");
-    			add_location(div8, file$4, 56, 12, 1749);
-    			attr_dev(div9, "class", "col-lg-6");
-    			add_location(div9, file$4, 55, 10, 1714);
-    			attr_dev(span1, "class", "icon-command display-3");
-    			add_location(span1, file$4, 72, 16, 2389);
-    			attr_dev(div10, "class", "mr-4 icon");
-    			add_location(div10, file$4, 71, 14, 2349);
-    			attr_dev(h31, "class", "h5");
-    			add_location(h31, file$4, 75, 16, 2505);
-    			add_location(p1, file$4, 76, 16, 2556);
-    			attr_dev(div11, "class", "media-body");
-    			add_location(div11, file$4, 74, 14, 2464);
-    			attr_dev(div12, "class", "media templateux-media mb-4");
-    			add_location(div12, file$4, 70, 12, 2293);
-    			attr_dev(div13, "class", "col-lg-6");
-    			add_location(div13, file$4, 69, 10, 2258);
-    			attr_dev(div14, "class", "row pt-sm-0 pt-md-5 mb-5");
-    			add_location(div14, file$4, 54, 8, 1665);
-    			attr_dev(span2, "class", "icon-feather display-3");
-    			add_location(span2, file$4, 89, 16, 3007);
-    			attr_dev(div15, "class", "mr-4 icon");
-    			add_location(div15, file$4, 88, 14, 2967);
-    			attr_dev(h32, "class", "h5");
-    			add_location(h32, file$4, 92, 16, 3123);
-    			add_location(p2, file$4, 93, 16, 3171);
-    			attr_dev(div16, "class", "media-body");
-    			add_location(div16, file$4, 91, 14, 3082);
-    			attr_dev(div17, "class", "media templateux-media mb-4");
-    			add_location(div17, file$4, 87, 12, 2911);
-    			attr_dev(div18, "class", "col-lg-6");
-    			add_location(div18, file$4, 86, 10, 2876);
-    			attr_dev(span3, "class", "icon-shopping-cart display-3");
-    			add_location(span3, file$4, 103, 16, 3547);
-    			attr_dev(div19, "class", "mr-4 icon");
-    			add_location(div19, file$4, 102, 14, 3507);
-    			attr_dev(h33, "class", "h5");
-    			add_location(h33, file$4, 106, 16, 3669);
-    			add_location(p3, file$4, 107, 16, 3715);
-    			attr_dev(div20, "class", "media-body");
-    			add_location(div20, file$4, 105, 14, 3628);
-    			attr_dev(div21, "class", "media templateux-media mb-4");
-    			add_location(div21, file$4, 101, 12, 3451);
-    			attr_dev(div22, "class", "col-lg-6");
-    			add_location(div22, file$4, 100, 10, 3416);
-    			attr_dev(div23, "class", "row clearfix");
-    			add_location(div23, file$4, 85, 8, 2839);
-    			attr_dev(div24, "class", "col-md-8 aos-init aos-animate");
-    			attr_dev(div24, "data-aos", "fade-up");
-    			attr_dev(div24, "data-aos-delay", "100");
-    			add_location(div24, file$4, 42, 6, 1292);
-    			attr_dev(div25, "class", "row justify-content-center");
-    			add_location(div25, file$4, 38, 4, 1106);
-    			attr_dev(div26, "class", "container");
-    			add_location(div26, file$4, 37, 2, 1078);
+    			add_location(div8, file$4, 63, 12, 1971);
+    			attr_dev(div9, "class", "col-lg-12");
+    			add_location(div9, file$4, 62, 10, 1935);
+    			attr_dev(div10, "class", "row pt-sm-0 pt-md-5 mb-5");
+    			add_location(div10, file$4, 61, 8, 1886);
+    			attr_dev(div11, "class", "col-md-8 aos-init aos-animate");
+    			attr_dev(div11, "data-aos", "fade-up");
+    			attr_dev(div11, "data-aos-delay", "100");
+    			add_location(div11, file$4, 50, 6, 1549);
+    			attr_dev(div12, "class", "row justify-content-center");
+    			add_location(div12, file$4, 46, 4, 1365);
+    			attr_dev(div13, "class", "container");
+    			add_location(div13, file$4, 45, 2, 1337);
     			attr_dev(section1, "class", "templateux-section");
-    			add_location(section1, file$4, 36, 0, 1039);
+    			add_location(section1, file$4, 44, 0, 1298);
     			attr_dev(h22, "class", "section-heading mt-3");
-    			add_location(h22, file$4, 124, 8, 4219);
-    			attr_dev(div27, "class", "col-md-4 aos-init aos-animate");
-    			attr_dev(div27, "data-aos", "fade-up");
-    			add_location(div27, file$4, 123, 6, 4148);
+    			add_location(h22, file$4, 95, 8, 3186);
+    			attr_dev(div14, "class", "col-md-4 aos-init aos-animate");
+    			attr_dev(div14, "data-aos", "fade-up");
+    			add_location(div14, file$4, 94, 6, 3115);
     			attr_dev(h23, "class", "mb-5");
-    			add_location(h23, file$4, 132, 12, 4467);
-    			attr_dev(div28, "class", "col-md-12");
-    			add_location(div28, file$4, 131, 10, 4431);
-    			attr_dev(div29, "class", "row");
-    			add_location(div29, file$4, 130, 8, 4403);
-    			attr_dev(span4, "class", "icon-monitor display-3");
-    			add_location(span4, file$4, 142, 16, 4840);
-    			attr_dev(div30, "class", "mr-4 icon");
-    			add_location(div30, file$4, 141, 14, 4800);
-    			attr_dev(h34, "class", "h5");
-    			add_location(h34, file$4, 145, 16, 4956);
-    			add_location(p4, file$4, 146, 16, 5008);
-    			attr_dev(div31, "class", "media-body");
-    			add_location(div31, file$4, 144, 14, 4915);
-    			attr_dev(div32, "class", "media templateux-media mb-4");
-    			add_location(div32, file$4, 140, 12, 4744);
-    			attr_dev(div33, "class", "col-lg-6");
-    			add_location(div33, file$4, 139, 10, 4709);
-    			attr_dev(span5, "class", "icon-command display-3");
-    			add_location(span5, file$4, 156, 16, 5384);
-    			attr_dev(div34, "class", "mr-4 icon");
-    			add_location(div34, file$4, 155, 14, 5344);
-    			attr_dev(h35, "class", "h5");
-    			add_location(h35, file$4, 159, 16, 5500);
-    			add_location(p5, file$4, 160, 16, 5551);
-    			attr_dev(div35, "class", "media-body");
-    			add_location(div35, file$4, 158, 14, 5459);
-    			attr_dev(div36, "class", "media templateux-media mb-4");
-    			add_location(div36, file$4, 154, 12, 5288);
-    			attr_dev(div37, "class", "col-lg-6");
-    			add_location(div37, file$4, 153, 10, 5253);
-    			attr_dev(div38, "class", "row pt-sm-0 pt-md-5 mb-5");
-    			add_location(div38, file$4, 138, 8, 4660);
-    			attr_dev(span6, "class", "icon-feather display-3");
-    			add_location(span6, file$4, 173, 16, 6002);
-    			attr_dev(div39, "class", "mr-4 icon");
-    			add_location(div39, file$4, 172, 14, 5962);
-    			attr_dev(h36, "class", "h5");
-    			add_location(h36, file$4, 176, 16, 6118);
-    			add_location(p6, file$4, 177, 16, 6166);
-    			attr_dev(div40, "class", "media-body");
-    			add_location(div40, file$4, 175, 14, 6077);
-    			attr_dev(div41, "class", "media templateux-media mb-4");
-    			add_location(div41, file$4, 171, 12, 5906);
-    			attr_dev(div42, "class", "col-lg-6");
-    			add_location(div42, file$4, 170, 10, 5871);
-    			attr_dev(span7, "class", "icon-shopping-cart display-3");
-    			add_location(span7, file$4, 187, 16, 6542);
-    			attr_dev(div43, "class", "mr-4 icon");
-    			add_location(div43, file$4, 186, 14, 6502);
-    			attr_dev(h37, "class", "h5");
-    			add_location(h37, file$4, 190, 16, 6664);
-    			add_location(p7, file$4, 191, 16, 6710);
-    			attr_dev(div44, "class", "media-body");
-    			add_location(div44, file$4, 189, 14, 6623);
-    			attr_dev(div45, "class", "media templateux-media mb-4");
-    			add_location(div45, file$4, 185, 12, 6446);
-    			attr_dev(div46, "class", "col-lg-6");
-    			add_location(div46, file$4, 184, 10, 6411);
-    			attr_dev(div47, "class", "row clearfix");
-    			add_location(div47, file$4, 169, 8, 5834);
-    			attr_dev(div48, "class", "col-md-8 aos-init aos-animate");
-    			attr_dev(div48, "data-aos", "fade-up");
-    			attr_dev(div48, "data-aos-delay", "100");
-    			add_location(div48, file$4, 126, 6, 4287);
-    			attr_dev(div49, "class", "row justify-content-center");
-    			add_location(div49, file$4, 122, 4, 4101);
-    			attr_dev(div50, "class", "container");
-    			add_location(div50, file$4, 121, 2, 4073);
+    			add_location(h23, file$4, 103, 12, 3433);
+    			attr_dev(div15, "class", "col-md-12");
+    			add_location(div15, file$4, 102, 10, 3397);
+    			attr_dev(div16, "class", "row");
+    			add_location(div16, file$4, 101, 8, 3369);
+    			attr_dev(span1, "class", "icon-monitor display-3");
+    			add_location(span1, file$4, 112, 16, 3839);
+    			attr_dev(div17, "class", "mr-4 icon");
+    			add_location(div17, file$4, 111, 14, 3799);
+    			attr_dev(h31, "class", "h5");
+    			add_location(h31, file$4, 115, 16, 3955);
+    			add_location(p2, file$4, 116, 16, 4014);
+    			attr_dev(div18, "class", "media-body");
+    			add_location(div18, file$4, 114, 14, 3914);
+    			attr_dev(div19, "class", "media templateux-media mb-4");
+    			add_location(div19, file$4, 110, 12, 3743);
+    			attr_dev(div20, "class", "col-lg-12");
+    			add_location(div20, file$4, 109, 10, 3707);
+    			attr_dev(span2, "class", "icon-command display-3");
+    			add_location(span2, file$4, 125, 16, 4463);
+    			attr_dev(div21, "class", "mr-4 icon");
+    			add_location(div21, file$4, 124, 14, 4423);
+    			attr_dev(h32, "class", "h5");
+    			add_location(h32, file$4, 128, 16, 4579);
+    			add_location(p3, file$4, 129, 16, 4634);
+    			attr_dev(div22, "class", "media-body");
+    			add_location(div22, file$4, 127, 14, 4538);
+    			attr_dev(div23, "class", "media templateux-media mb-4");
+    			add_location(div23, file$4, 123, 12, 4367);
+    			attr_dev(div24, "class", "col-lg-12");
+    			add_location(div24, file$4, 122, 10, 4331);
+    			attr_dev(span3, "class", "icon-feather display-3");
+    			add_location(span3, file$4, 139, 16, 5068);
+    			attr_dev(div25, "class", "mr-4 icon");
+    			add_location(div25, file$4, 138, 14, 5028);
+    			attr_dev(h33, "class", "h5");
+    			add_location(h33, file$4, 142, 16, 5184);
+    			add_location(p4, file$4, 143, 16, 5238);
+    			attr_dev(div26, "class", "media-body");
+    			add_location(div26, file$4, 141, 14, 5143);
+    			attr_dev(div27, "class", "media templateux-media mb-4");
+    			add_location(div27, file$4, 137, 12, 4972);
+    			attr_dev(div28, "class", "col-lg-12");
+    			add_location(div28, file$4, 136, 10, 4936);
+    			attr_dev(div29, "class", "row pt-sm-0 pt-md-5 mb-5");
+    			add_location(div29, file$4, 108, 8, 3658);
+    			attr_dev(div30, "class", "col-md-8 aos-init aos-animate");
+    			attr_dev(div30, "data-aos", "fade-up");
+    			attr_dev(div30, "data-aos-delay", "100");
+    			add_location(div30, file$4, 97, 6, 3253);
+    			attr_dev(div31, "class", "row justify-content-center");
+    			add_location(div31, file$4, 93, 4, 3068);
+    			attr_dev(div32, "class", "container");
+    			add_location(div32, file$4, 92, 2, 3040);
     			attr_dev(section2, "class", "templateux-section");
-    			add_location(section2, file$4, 120, 0, 4034);
-    			if (img0.src !== (img0_src_value = "images/img_1.jpg")) attr_dev(img0, "src", img0_src_value);
-    			attr_dev(img0, "alt", "Free Template");
-    			attr_dev(img0, "class", "img-fluid");
-    			attr_dev(img0, "data-pagespeed-url-hash", "2601062986");
-    			attr_dev(img0, "onload", "pagespeed.CriticalImages.checkImageForCriticality(this);");
-    			add_location(img0, file$4, 211, 12, 7309);
-    			add_location(figure0, file$4, 209, 10, 7287);
-    			add_location(h24, file$4, 220, 14, 7669);
-    			add_location(span8, file$4, 221, 14, 7708);
-    			attr_dev(div51, "class", "project-hover-inner");
-    			add_location(div51, file$4, 219, 12, 7621);
-    			attr_dev(div52, "class", "project-hover");
-    			add_location(div52, file$4, 218, 10, 7581);
-    			attr_dev(a1, "class", "project animsition-link");
-    			attr_dev(a1, "href", "work-single.html");
-    			add_location(a1, file$4, 208, 8, 7217);
-    			attr_dev(div53, "class", "col-md-6 aos-init aos-animate");
-    			attr_dev(div53, "data-aos", "fade-up");
-    			add_location(div53, file$4, 207, 6, 7146);
-    			if (img1.src !== (img1_src_value = "images/img_2.jpg")) attr_dev(img1, "src", img1_src_value);
-    			attr_dev(img1, "alt", "Free Template");
-    			attr_dev(img1, "class", "img-fluid");
-    			attr_dev(img1, "data-pagespeed-url-hash", "2895562907");
-    			attr_dev(img1, "onload", "pagespeed.CriticalImages.checkImageForCriticality(this);");
-    			add_location(img1, file$4, 232, 12, 8012);
-    			add_location(figure1, file$4, 231, 10, 7991);
-    			add_location(h25, file$4, 241, 14, 8372);
-    			add_location(span9, file$4, 242, 14, 8416);
-    			attr_dev(div54, "class", "project-hover-inner");
-    			add_location(div54, file$4, 240, 12, 8324);
-    			attr_dev(div55, "class", "project-hover");
-    			add_location(div55, file$4, 239, 10, 8284);
-    			attr_dev(a2, "class", "project animsition-link");
-    			attr_dev(a2, "href", "work-single.html");
-    			add_location(a2, file$4, 230, 8, 7921);
-    			attr_dev(div56, "class", "col-md-6 aos-init aos-animate");
-    			attr_dev(div56, "data-aos", "fade-up");
-    			attr_dev(div56, "data-aos-delay", "100");
-    			add_location(div56, file$4, 226, 6, 7805);
-    			attr_dev(div57, "class", "row");
-    			add_location(div57, file$4, 206, 4, 7122);
-    			if (img2.src !== (img2_src_value = "images/img_3.jpg")) attr_dev(img2, "src", img2_src_value);
-    			attr_dev(img2, "alt", "Free Template");
-    			attr_dev(img2, "class", "img-fluid");
-    			attr_dev(img2, "data-pagespeed-url-hash", "3190062828");
-    			attr_dev(img2, "onload", "pagespeed.CriticalImages.checkImageForCriticality(this);");
-    			add_location(img2, file$4, 253, 12, 8738);
-    			add_location(figure2, file$4, 252, 10, 8717);
-    			add_location(h26, file$4, 262, 14, 9098);
-    			add_location(span10, file$4, 263, 14, 9135);
-    			attr_dev(div58, "class", "project-hover-inner");
-    			add_location(div58, file$4, 261, 12, 9050);
-    			attr_dev(div59, "class", "project-hover");
-    			add_location(div59, file$4, 260, 10, 9010);
-    			attr_dev(a3, "class", "project animsition-link");
-    			attr_dev(a3, "href", "work-single.html");
-    			add_location(a3, file$4, 251, 8, 8647);
-    			attr_dev(div60, "class", "col-lg-4 col-md-6 aos-init aos-animate");
-    			attr_dev(div60, "data-aos", "fade-up");
-    			add_location(div60, file$4, 250, 6, 8567);
-    			if (img3.src !== (img3_src_value = "images/img_4.jpg")) attr_dev(img3, "src", img3_src_value);
-    			attr_dev(img3, "alt", "Free Template");
-    			attr_dev(img3, "class", "img-fluid");
-    			attr_dev(img3, "data-pagespeed-url-hash", "3484562749");
-    			attr_dev(img3, "onload", "pagespeed.CriticalImages.checkImageForCriticality(this);");
-    			add_location(img3, file$4, 274, 12, 9448);
-    			add_location(figure3, file$4, 273, 10, 9427);
-    			add_location(h27, file$4, 283, 14, 9808);
-    			add_location(span11, file$4, 284, 14, 9848);
-    			attr_dev(div61, "class", "project-hover-inner");
-    			add_location(div61, file$4, 282, 12, 9760);
-    			attr_dev(div62, "class", "project-hover");
-    			add_location(div62, file$4, 281, 10, 9720);
-    			attr_dev(a4, "class", "project animsition-link");
-    			attr_dev(a4, "href", "work-single.html");
-    			add_location(a4, file$4, 272, 8, 9357);
-    			attr_dev(div63, "class", "col-lg-4 col-md-6 aos-init aos-animate");
-    			attr_dev(div63, "data-aos", "fade-up");
-    			attr_dev(div63, "data-aos-delay", "100");
-    			add_location(div63, file$4, 268, 6, 9232);
-    			if (img4.src !== (img4_src_value = "images/img_5.jpg")) attr_dev(img4, "src", img4_src_value);
-    			attr_dev(img4, "alt", "Free Template");
-    			attr_dev(img4, "class", "img-fluid");
-    			attr_dev(img4, "data-pagespeed-url-hash", "3779062670");
-    			attr_dev(img4, "onload", "pagespeed.CriticalImages.checkImageForCriticality(this);");
-    			add_location(img4, file$4, 295, 12, 10149);
-    			add_location(figure4, file$4, 294, 10, 10128);
-    			add_location(h28, file$4, 304, 14, 10509);
-    			add_location(span12, file$4, 305, 14, 10552);
-    			attr_dev(div64, "class", "project-hover-inner");
-    			add_location(div64, file$4, 303, 12, 10461);
-    			attr_dev(div65, "class", "project-hover");
-    			add_location(div65, file$4, 302, 10, 10421);
-    			attr_dev(a5, "class", "project animsition-link");
-    			attr_dev(a5, "href", "work-single.html");
-    			add_location(a5, file$4, 293, 8, 10058);
-    			attr_dev(div66, "class", "col-lg-4 col-md-6 aos-init");
-    			attr_dev(div66, "data-aos", "fade-up");
-    			attr_dev(div66, "data-aos-delay", "200");
-    			add_location(div66, file$4, 289, 6, 9945);
-    			attr_dev(div67, "class", "row");
-    			add_location(div67, file$4, 249, 4, 8543);
-    			attr_dev(div68, "class", "container-fluid");
-    			add_location(div68, file$4, 205, 2, 7088);
-    			attr_dev(section3, "class", "templateux-portfolio-overlap");
-    			attr_dev(section3, "id", "next");
-    			add_location(section3, file$4, 204, 0, 7029);
-    			attr_dev(h29, "class", "section-heading mt-3");
-    			add_location(h29, file$4, 318, 8, 10885);
-    			attr_dev(div69, "class", "col-md-4 aos-init aos-animate");
-    			attr_dev(div69, "data-aos", "fade-up");
-    			add_location(div69, file$4, 317, 6, 10814);
-    			attr_dev(div70, "class", "row");
-    			add_location(div70, file$4, 322, 8, 10992);
-    			attr_dev(div71, "class", "col-md-8");
-    			add_location(div71, file$4, 320, 6, 10960);
-    			attr_dev(div72, "class", "row justify-content-center");
-    			add_location(div72, file$4, 316, 4, 10767);
-    			attr_dev(a6, "href", "blog.html");
-    			attr_dev(a6, "class", "animsition-link");
-    			add_location(a6, file$4, 363, 8, 12279);
-    			attr_dev(div73, "class", "col-md-8 ml-auto");
-    			add_location(div73, file$4, 362, 6, 12240);
-    			attr_dev(div74, "class", "row aos-init");
-    			attr_dev(div74, "data-aos", "fade-up");
-    			attr_dev(div74, "data-aos-delay", "400");
-    			add_location(div74, file$4, 361, 4, 12167);
-    			attr_dev(div75, "class", "container");
-    			add_location(div75, file$4, 315, 2, 10739);
+    			add_location(section2, file$4, 91, 0, 3001);
+    			attr_dev(h24, "class", "section-heading mt-3");
+    			add_location(h24, file$4, 161, 8, 5751);
+    			attr_dev(div33, "class", "col-md-4 aos-init aos-animate");
+    			attr_dev(div33, "data-aos", "fade-up");
+    			add_location(div33, file$4, 160, 6, 5680);
+    			attr_dev(div34, "class", "row");
+    			add_location(div34, file$4, 165, 8, 5854);
+    			attr_dev(div35, "class", "col-md-8");
+    			add_location(div35, file$4, 163, 6, 5822);
+    			attr_dev(div36, "class", "row justify-content-center");
+    			add_location(div36, file$4, 159, 4, 5633);
+    			attr_dev(a1, "href", "blog.html");
+    			attr_dev(a1, "class", "animsition-link");
+    			add_location(a1, file$4, 206, 8, 7158);
+    			attr_dev(div37, "class", "col-md-8 ml-auto");
+    			add_location(div37, file$4, 205, 6, 7119);
+    			attr_dev(div38, "class", "row aos-init");
+    			attr_dev(div38, "data-aos", "fade-up");
+    			attr_dev(div38, "data-aos-delay", "400");
+    			add_location(div38, file$4, 204, 4, 7046);
+    			attr_dev(div39, "class", "container");
+    			add_location(div39, file$4, 158, 2, 5605);
+    			attr_dev(section3, "class", "templateux-section mb-5");
+    			add_location(section3, file$4, 157, 0, 5561);
+    			attr_dev(h25, "class", "section-heading mt-3");
+    			add_location(h25, file$4, 216, 8, 7461);
+    			attr_dev(div40, "class", "col-md-4 aos-init aos-animate");
+    			attr_dev(div40, "data-aos", "fade-up");
+    			add_location(div40, file$4, 215, 6, 7390);
+    			attr_dev(div41, "class", "row");
+    			add_location(div41, file$4, 220, 8, 7568);
+    			attr_dev(div42, "class", "col-md-8");
+    			add_location(div42, file$4, 218, 6, 7536);
+    			attr_dev(div43, "class", "row justify-content-center");
+    			add_location(div43, file$4, 214, 4, 7343);
+    			attr_dev(a2, "href", "blog.html");
+    			attr_dev(a2, "class", "animsition-link");
+    			add_location(a2, file$4, 261, 8, 8855);
+    			attr_dev(div44, "class", "col-md-8 ml-auto");
+    			add_location(div44, file$4, 260, 6, 8816);
+    			attr_dev(div45, "class", "row aos-init");
+    			attr_dev(div45, "data-aos", "fade-up");
+    			attr_dev(div45, "data-aos-delay", "400");
+    			add_location(div45, file$4, 259, 4, 8743);
+    			attr_dev(div46, "class", "container");
+    			add_location(div46, file$4, 213, 2, 7315);
     			attr_dev(section4, "class", "templateux-section mb-5");
-    			add_location(section4, file$4, 314, 0, 10695);
-    			attr_dev(section5, "class", "letter");
-    			add_location(section5, file$4, 368, 0, 12391);
+    			add_location(section4, file$4, 212, 0, 7271);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10113,199 +10099,115 @@ var app = (function () {
     			append_dev(div2, div1);
     			append_dev(div1, div0);
     			append_dev(div0, h1);
-    			append_dev(div0, t2);
+    			append_dev(h1, t1);
+    			append_dev(h1, br);
+    			append_dev(h1, t2);
+    			append_dev(div0, t3);
     			append_dev(div0, a0);
-    			insert_dev(target, t3, anchor);
+    			insert_dev(target, t4, anchor);
     			insert_dev(target, section1, anchor);
-    			append_dev(section1, div26);
-    			append_dev(div26, div25);
-    			append_dev(div25, div3);
+    			append_dev(section1, div13);
+    			append_dev(div13, div12);
+    			append_dev(div12, div3);
     			append_dev(div3, h20);
-    			append_dev(div25, t5);
-    			append_dev(div25, div24);
-    			append_dev(div24, div5);
+    			append_dev(div12, t6);
+    			append_dev(div12, div11);
+    			append_dev(div11, div5);
     			append_dev(div5, div4);
     			append_dev(div4, h21);
-    			append_dev(div24, t7);
-    			append_dev(div24, div14);
-    			append_dev(div14, div9);
+    			append_dev(div11, t8);
+    			append_dev(div11, div10);
+    			append_dev(div10, div9);
     			append_dev(div9, div8);
     			append_dev(div8, div6);
     			append_dev(div6, span0);
-    			append_dev(div8, t8);
+    			append_dev(div8, t9);
     			append_dev(div8, div7);
     			append_dev(div7, h30);
-    			append_dev(div7, t10);
+    			append_dev(div7, t11);
     			append_dev(div7, p0);
-    			append_dev(div14, t12);
-    			append_dev(div14, div13);
-    			append_dev(div13, div12);
-    			append_dev(div12, div10);
-    			append_dev(div10, span1);
-    			append_dev(div12, t13);
-    			append_dev(div12, div11);
-    			append_dev(div11, h31);
-    			append_dev(div11, t15);
-    			append_dev(div11, p1);
-    			append_dev(div24, t17);
-    			append_dev(div24, div23);
-    			append_dev(div23, div18);
-    			append_dev(div18, div17);
-    			append_dev(div17, div15);
-    			append_dev(div15, span2);
-    			append_dev(div17, t18);
-    			append_dev(div17, div16);
-    			append_dev(div16, h32);
-    			append_dev(div16, t20);
-    			append_dev(div16, p2);
-    			append_dev(div23, t22);
-    			append_dev(div23, div22);
-    			append_dev(div22, div21);
-    			append_dev(div21, div19);
-    			append_dev(div19, span3);
-    			append_dev(div21, t23);
-    			append_dev(div21, div20);
-    			append_dev(div20, h33);
-    			append_dev(div20, t25);
-    			append_dev(div20, p3);
-    			insert_dev(target, t27, anchor);
+    			append_dev(div7, t13);
+    			append_dev(div7, p1);
+    			insert_dev(target, t15, anchor);
     			insert_dev(target, section2, anchor);
-    			append_dev(section2, div50);
-    			append_dev(div50, div49);
-    			append_dev(div49, div27);
-    			append_dev(div27, h22);
-    			append_dev(div49, t29);
-    			append_dev(div49, div48);
-    			append_dev(div48, div29);
-    			append_dev(div29, div28);
-    			append_dev(div28, h23);
-    			append_dev(div48, t31);
-    			append_dev(div48, div38);
-    			append_dev(div38, div33);
-    			append_dev(div33, div32);
-    			append_dev(div32, div30);
-    			append_dev(div30, span4);
-    			append_dev(div32, t32);
+    			append_dev(section2, div32);
     			append_dev(div32, div31);
-    			append_dev(div31, h34);
-    			append_dev(div31, t34);
-    			append_dev(div31, p4);
-    			append_dev(div38, t36);
-    			append_dev(div38, div37);
-    			append_dev(div37, div36);
-    			append_dev(div36, div34);
-    			append_dev(div34, span5);
-    			append_dev(div36, t37);
-    			append_dev(div36, div35);
-    			append_dev(div35, h35);
-    			append_dev(div35, t39);
-    			append_dev(div35, p5);
-    			append_dev(div48, t41);
-    			append_dev(div48, div47);
-    			append_dev(div47, div42);
-    			append_dev(div42, div41);
-    			append_dev(div41, div39);
-    			append_dev(div39, span6);
-    			append_dev(div41, t42);
-    			append_dev(div41, div40);
-    			append_dev(div40, h36);
-    			append_dev(div40, t44);
-    			append_dev(div40, p6);
-    			append_dev(div47, t46);
-    			append_dev(div47, div46);
-    			append_dev(div46, div45);
-    			append_dev(div45, div43);
-    			append_dev(div43, span7);
-    			append_dev(div45, t47);
-    			append_dev(div45, div44);
-    			append_dev(div44, h37);
-    			append_dev(div44, t49);
-    			append_dev(div44, p7);
-    			insert_dev(target, t51, anchor);
+    			append_dev(div31, div14);
+    			append_dev(div14, h22);
+    			append_dev(div31, t17);
+    			append_dev(div31, div30);
+    			append_dev(div30, div16);
+    			append_dev(div16, div15);
+    			append_dev(div15, h23);
+    			append_dev(div30, t19);
+    			append_dev(div30, div29);
+    			append_dev(div29, div20);
+    			append_dev(div20, div19);
+    			append_dev(div19, div17);
+    			append_dev(div17, span1);
+    			append_dev(div19, t20);
+    			append_dev(div19, div18);
+    			append_dev(div18, h31);
+    			append_dev(div18, t22);
+    			append_dev(div18, p2);
+    			append_dev(div29, t24);
+    			append_dev(div29, div24);
+    			append_dev(div24, div23);
+    			append_dev(div23, div21);
+    			append_dev(div21, span2);
+    			append_dev(div23, t25);
+    			append_dev(div23, div22);
+    			append_dev(div22, h32);
+    			append_dev(div22, t27);
+    			append_dev(div22, p3);
+    			append_dev(div29, t29);
+    			append_dev(div29, div28);
+    			append_dev(div28, div27);
+    			append_dev(div27, div25);
+    			append_dev(div25, span3);
+    			append_dev(div27, t30);
+    			append_dev(div27, div26);
+    			append_dev(div26, h33);
+    			append_dev(div26, t32);
+    			append_dev(div26, p4);
+    			insert_dev(target, t34, anchor);
     			insert_dev(target, section3, anchor);
-    			append_dev(section3, div68);
-    			append_dev(div68, div57);
-    			append_dev(div57, div53);
-    			append_dev(div53, a1);
-    			append_dev(a1, figure0);
-    			append_dev(figure0, img0);
-    			append_dev(a1, t52);
-    			append_dev(a1, div52);
-    			append_dev(div52, div51);
-    			append_dev(div51, h24);
-    			append_dev(div51, t54);
-    			append_dev(div51, span8);
-    			append_dev(div57, t56);
-    			append_dev(div57, div56);
-    			append_dev(div56, a2);
-    			append_dev(a2, figure1);
-    			append_dev(figure1, img1);
-    			append_dev(a2, t57);
-    			append_dev(a2, div55);
-    			append_dev(div55, div54);
-    			append_dev(div54, h25);
-    			append_dev(div54, t59);
-    			append_dev(div54, span9);
-    			append_dev(div68, t61);
-    			append_dev(div68, div67);
-    			append_dev(div67, div60);
-    			append_dev(div60, a3);
-    			append_dev(a3, figure2);
-    			append_dev(figure2, img2);
-    			append_dev(a3, t62);
-    			append_dev(a3, div59);
-    			append_dev(div59, div58);
-    			append_dev(div58, h26);
-    			append_dev(div58, t64);
-    			append_dev(div58, span10);
-    			append_dev(div67, t66);
-    			append_dev(div67, div63);
-    			append_dev(div63, a4);
-    			append_dev(a4, figure3);
-    			append_dev(figure3, img3);
-    			append_dev(a4, t67);
-    			append_dev(a4, div62);
-    			append_dev(div62, div61);
-    			append_dev(div61, h27);
-    			append_dev(div61, t69);
-    			append_dev(div61, span11);
-    			append_dev(div67, t71);
-    			append_dev(div67, div66);
-    			append_dev(div66, a5);
-    			append_dev(a5, figure4);
-    			append_dev(figure4, img4);
-    			append_dev(a5, t72);
-    			append_dev(a5, div65);
-    			append_dev(div65, div64);
-    			append_dev(div64, h28);
-    			append_dev(div64, t74);
-    			append_dev(div64, span12);
-    			insert_dev(target, t76, anchor);
+    			append_dev(section3, div39);
+    			append_dev(div39, div36);
+    			append_dev(div36, div33);
+    			append_dev(div33, h24);
+    			append_dev(div36, t36);
+    			append_dev(div36, div35);
+    			append_dev(div35, div34);
+    			if (if_block0) if_block0.m(div34, null);
+    			append_dev(div39, t37);
+    			append_dev(div39, div38);
+    			append_dev(div38, div37);
+    			append_dev(div37, a1);
+    			insert_dev(target, t39, anchor);
     			insert_dev(target, section4, anchor);
-    			append_dev(section4, div75);
-    			append_dev(div75, div72);
-    			append_dev(div72, div69);
-    			append_dev(div69, h29);
-    			append_dev(div72, t78);
-    			append_dev(div72, div71);
-    			append_dev(div71, div70);
-    			if (if_block) if_block.m(div70, null);
-    			append_dev(div75, t79);
-    			append_dev(div75, div74);
-    			append_dev(div74, div73);
-    			append_dev(div73, a6);
-    			insert_dev(target, t81, anchor);
-    			insert_dev(target, section5, anchor);
+    			append_dev(section4, div46);
+    			append_dev(div46, div43);
+    			append_dev(div43, div40);
+    			append_dev(div40, h25);
+    			append_dev(div43, t41);
+    			append_dev(div43, div42);
+    			append_dev(div42, div41);
+    			if (if_block1) if_block1.m(div41, null);
+    			append_dev(div46, t42);
+    			append_dev(div46, div45);
+    			append_dev(div45, div44);
+    			append_dev(div44, a2);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window, "resize", /*onwindowresize*/ ctx[3]),
+    					listen_dev(window, "resize", /*onwindowresize*/ ctx[4]),
     					listen_dev(window, "scroll", () => {
     						scrolling = true;
     						clearTimeout(scrolling_timeout);
     						scrolling_timeout = setTimeout(clear_scrolling, 100);
-    						/*onwindowscroll*/ ctx[4]();
+    						/*onwindowscroll*/ ctx[5]();
     					})
     				];
 
@@ -10313,31 +10215,54 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*x*/ 4 && !scrolling) {
+    			if (dirty & /*x*/ 8 && !scrolling) {
     				scrolling = true;
     				clearTimeout(scrolling_timeout);
-    				scrollTo(window.pageXOffset, /*x*/ ctx[2]);
+    				scrollTo(window.pageXOffset, /*x*/ ctx[3]);
     				scrolling_timeout = setTimeout(clear_scrolling, 100);
     			}
 
-    			if (/*posts*/ ctx[0] && /*posts*/ ctx[0].length > 0) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
+    			if (/*portfolio*/ ctx[1] && /*portfolio*/ ctx[1].length > 0) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
 
-    					if (dirty & /*posts*/ 1) {
-    						transition_in(if_block, 1);
+    					if (dirty & /*portfolio*/ 2) {
+    						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block = create_if_block$3(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div70, null);
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div34, null);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
 
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*posts*/ ctx[0] && /*posts*/ ctx[0].length > 0) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty & /*posts*/ 1) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block$3(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(div41, null);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
     				});
 
     				check_outros();
@@ -10345,27 +10270,28 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block);
+    			transition_in(if_block0);
+    			transition_in(if_block1);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block);
+    			transition_out(if_block0);
+    			transition_out(if_block1);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(section0);
-    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(t4);
     			if (detaching) detach_dev(section1);
-    			if (detaching) detach_dev(t27);
+    			if (detaching) detach_dev(t15);
     			if (detaching) detach_dev(section2);
-    			if (detaching) detach_dev(t51);
+    			if (detaching) detach_dev(t34);
     			if (detaching) detach_dev(section3);
-    			if (detaching) detach_dev(t76);
+    			if (if_block0) if_block0.d();
+    			if (detaching) detach_dev(t39);
     			if (detaching) detach_dev(section4);
-    			if (if_block) if_block.d();
-    			if (detaching) detach_dev(t81);
-    			if (detaching) detach_dev(section5);
+    			if (if_block1) if_block1.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -10382,20 +10308,25 @@ var app = (function () {
     	return block;
     }
 
-    const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts";
+    const postApiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts";
+    const portApiUrl = "http://ganesan.xyz/wp-json/wp/v2/portfolio";
 
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Home", slots, []);
     	let posts = [];
+    	let portfolio = [];
     	let y;
     	let x;
 
     	onMount(async function () {
-    		console.log("role", apiUrl);
-    		const response = await fetch(apiUrl);
-    		const postsall = await response.json();
+    		console.log("role", postApiUrl);
+    		const postresponse = await fetch(postApiUrl);
+    		const postsall = await postresponse.json();
     		$$invalidate(0, posts = postsall.slice(0, 6));
+    		const portResponse = await fetch(portApiUrl);
+    		const portsall = await portResponse.json();
+    		$$invalidate(1, portfolio = portsall.slice(0, 6));
     	});
 
     	const writable_props = [];
@@ -10405,11 +10336,11 @@ var app = (function () {
     	});
 
     	function onwindowresize() {
-    		$$invalidate(1, y = window.innerHeight);
+    		$$invalidate(2, y = window.innerHeight);
     	}
 
     	function onwindowscroll() {
-    		$$invalidate(2, x = window.pageYOffset);
+    		$$invalidate(3, x = window.pageYOffset);
     	}
 
     	$$self.$capture_state = () => ({
@@ -10420,22 +10351,25 @@ var app = (function () {
     		redirectURL,
     		PostImage,
     		posts,
+    		portfolio,
     		y,
     		x,
-    		apiUrl
+    		postApiUrl,
+    		portApiUrl
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("posts" in $$props) $$invalidate(0, posts = $$props.posts);
-    		if ("y" in $$props) $$invalidate(1, y = $$props.y);
-    		if ("x" in $$props) $$invalidate(2, x = $$props.x);
+    		if ("portfolio" in $$props) $$invalidate(1, portfolio = $$props.portfolio);
+    		if ("y" in $$props) $$invalidate(2, y = $$props.y);
+    		if ("x" in $$props) $$invalidate(3, x = $$props.x);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [posts, y, x, onwindowresize, onwindowscroll];
+    	return [posts, portfolio, y, x, onwindowresize, onwindowscroll];
     }
 
     class Home extends SvelteComponentDev {
@@ -10759,7 +10693,7 @@ var app = (function () {
     const file$6 = "src/routes/Post.svelte";
 
     // (36:10) {#if data.title}
-    function create_if_block_2(ctx) {
+    function create_if_block_2$1(ctx) {
     	let html_tag;
     	let raw_value = /*data*/ ctx[0].title.rendered + "";
     	let html_anchor;
@@ -10784,7 +10718,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_2$1.name,
     		type: "if",
     		source: "(36:10) {#if data.title}",
     		ctx
@@ -10979,7 +10913,7 @@ var app = (function () {
     	let dispose;
     	add_render_callback(/*onwindowresize*/ ctx[4]);
     	add_render_callback(/*onwindowscroll*/ ctx[5]);
-    	let if_block0 = /*data*/ ctx[0].title && create_if_block_2(ctx);
+    	let if_block0 = /*data*/ ctx[0].title && create_if_block_2$1(ctx);
     	let if_block1 = /*data*/ ctx[0].content && create_if_block_1$2(ctx);
     	let if_block2 = /*data*/ ctx[0].title && create_if_block$5(ctx);
 
@@ -11342,7 +11276,7 @@ var app = (function () {
     				if (if_block0) {
     					if_block0.p(ctx, dirty);
     				} else {
-    					if_block0 = create_if_block_2(ctx);
+    					if_block0 = create_if_block_2$1(ctx);
     					if_block0.c();
     					if_block0.m(h1, null);
     				}
@@ -11591,7 +11525,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    function get_each_context_1(ctx, list, i) {
+    function get_each_context_1$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[16] = list[i];
     	return child_ctx;
@@ -11783,7 +11717,7 @@ var app = (function () {
     }
 
     // (59:10) {#if cat.array && cat.array.length > 0}
-    function create_if_block_2$1(ctx) {
+    function create_if_block_2$2(ctx) {
     	let div;
     	let t;
     	let each_1_anchor;
@@ -11792,7 +11726,7 @@ var app = (function () {
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value_1.length; i += 1) {
-    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    		each_blocks[i] = create_each_block_1$1(get_each_context_1$1(ctx, each_value_1, i));
     	}
 
     	const block = {
@@ -11824,12 +11758,12 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value_1.length; i += 1) {
-    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+    					const child_ctx = get_each_context_1$1(ctx, each_value_1, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i] = create_each_block_1$1(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
     					}
@@ -11852,7 +11786,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$1.name,
+    		id: create_if_block_2$2.name,
     		type: "if",
     		source: "(59:10) {#if cat.array && cat.array.length > 0}",
     		ctx
@@ -11893,7 +11827,7 @@ var app = (function () {
     }
 
     // (65:18) {#if ari.class && ari.class.length > 0}
-    function create_if_block_3(ctx) {
+    function create_if_block_3$1(ctx) {
     	let each_1_anchor;
     	let each_value_2 = /*ari*/ ctx[16].class;
     	validate_each_argument(each_value_2);
@@ -11951,7 +11885,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_3.name,
+    		id: create_if_block_3$1.name,
     		type: "if",
     		source: "(65:18) {#if ari.class && ari.class.length > 0}",
     		ctx
@@ -12005,7 +11939,7 @@ var app = (function () {
     }
 
     // (62:12) {#each cat.array as ari}
-    function create_each_block_1(ctx) {
+    function create_each_block_1$1(ctx) {
     	let div2;
     	let div0;
     	let t0;
@@ -12015,7 +11949,7 @@ var app = (function () {
     	let div2_class_value;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*ari*/ ctx[16].class && /*ari*/ ctx[16].class.length > 0) return create_if_block_3;
+    		if (/*ari*/ ctx[16].class && /*ari*/ ctx[16].class.length > 0) return create_if_block_3$1;
     		return create_else_block$2;
     	}
 
@@ -12072,7 +12006,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block_1.name,
+    		id: create_each_block_1$1.name,
     		type: "each",
     		source: "(62:12) {#each cat.array as ari}",
     		ctx
@@ -12093,7 +12027,7 @@ var app = (function () {
     	let hr;
     	let t4;
     	let if_block0 = /*cat*/ ctx[13].content && create_if_block_4(ctx);
-    	let if_block1 = /*cat*/ ctx[13].array && /*cat*/ ctx[13].array.length > 0 && create_if_block_2$1(ctx);
+    	let if_block1 = /*cat*/ ctx[13].array && /*cat*/ ctx[13].array.length > 0 && create_if_block_2$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -12143,7 +12077,7 @@ var app = (function () {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_2$1(ctx);
+    					if_block1 = create_if_block_2$2(ctx);
     					if_block1.c();
     					if_block1.m(div, t3);
     				}
@@ -12467,7 +12401,7 @@ var app = (function () {
     /* src/App.svelte generated by Svelte v3.28.0 */
     const file$a = "src/App.svelte";
 
-    // (115:2) <Router>
+    // (108:2) <Router>
     function create_default_slot$2(ctx) {
     	let route0;
     	let t0;
@@ -12549,7 +12483,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$2.name,
     		type: "slot",
-    		source: "(115:2) <Router>",
+    		source: "(108:2) <Router>",
     		ctx
     	});
 
@@ -12578,57 +12512,48 @@ var app = (function () {
     	let li1;
     	let a2;
     	let t6;
-    	let li2;
-    	let a3;
-    	let t8;
-    	let li3;
-    	let a4;
-    	let t10;
-    	let li4;
-    	let a5;
-    	let t12;
     	let router;
-    	let t13;
-    	let a6;
+    	let t7;
+    	let a3;
     	let div6;
     	let div5;
     	let h2;
     	let span2;
-    	let t14;
+    	let t8;
     	let b;
-    	let t17;
-    	let t18;
+    	let t11;
+    	let t12;
     	let span3;
-    	let t20;
+    	let t14;
     	let footer;
     	let div10;
     	let div9;
     	let div7;
     	let p;
-    	let t21;
+    	let t15;
     	let br0;
-    	let t22;
-    	let a7;
-    	let t24;
-    	let a8;
-    	let t26;
+    	let t16;
+    	let a4;
+    	let t18;
+    	let a5;
+    	let t20;
     	let br1;
-    	let t27;
-    	let t28;
-    	let t29;
-    	let a9;
-    	let t31;
+    	let t21;
+    	let t22;
+    	let t23;
+    	let a6;
+    	let t25;
     	let div8;
-    	let a10;
+    	let a7;
     	let span4;
-    	let t32;
-    	let a11;
+    	let t26;
+    	let a8;
     	let span5;
-    	let t33;
-    	let a12;
+    	let t27;
+    	let a9;
     	let span6;
-    	let t34;
-    	let a13;
+    	let t28;
+    	let a10;
     	let span7;
     	let current;
 
@@ -12666,108 +12591,84 @@ var app = (function () {
     			a2 = element("a");
     			a2.textContent = "Work";
     			t6 = space();
-    			li2 = element("li");
-    			a3 = element("a");
-    			a3.textContent = "About";
-    			t8 = space();
-    			li3 = element("li");
-    			a4 = element("a");
-    			a4.textContent = "Blog";
-    			t10 = space();
-    			li4 = element("li");
-    			a5 = element("a");
-    			a5.textContent = "Contact";
-    			t12 = space();
     			create_component(router.$$.fragment);
-    			t13 = space();
-    			a6 = element("a");
+    			t7 = space();
+    			a3 = element("a");
     			div6 = element("div");
     			div5 = element("div");
     			h2 = element("h2");
     			span2 = element("span");
-    			t14 = text("Have ");
+    			t8 = text("Have\n          ");
     			b = element("b");
     			b.textContent = `a ${/*days*/ ctx[0][/*random*/ ctx[1]]}`;
-    			t17 = text("  day.");
-    			t18 = space();
+    			t11 = text("\n          day.");
+    			t12 = space();
     			span3 = element("span");
     			span3.textContent = "Let's chat we are good people.";
-    			t20 = space();
+    			t14 = space();
     			footer = element("footer");
     			div10 = element("div");
     			div9 = element("div");
     			div7 = element("div");
     			p = element("p");
-    			t21 = text("What's Meant To Be Will Always Find Its Way ");
+    			t15 = text("What's Meant To Be Will Always Find Its Way\n          ");
     			br0 = element("br");
-    			t22 = text("\n          This page is designed, built on\n          ");
-    			a7 = element("a");
-    			a7.textContent = "Svelte";
-    			t24 = text("\n          , and backed by\n          ");
-    			a8 = element("a");
-    			a8.textContent = "Netlify";
-    			t26 = text("\n          .\n          ");
+    			t16 = text("\n          This page is designed, built on\n          ");
+    			a4 = element("a");
+    			a4.textContent = "Svelte";
+    			t18 = text("\n          , and backed by\n          ");
+    			a5 = element("a");
+    			a5.textContent = "Netlify";
+    			t20 = text("\n          .\n          ");
     			br1 = element("br");
-    			t27 = text("\n          Copyright © ");
-    			t28 = text(/*n*/ ctx[2]);
-    			t29 = space();
-    			a9 = element("a");
-    			a9.textContent = "Ganesan Karuppaiya.";
-    			t31 = space();
+    			t21 = text("\n          Copyright © ");
+    			t22 = text(/*n*/ ctx[2]);
+    			t23 = space();
+    			a6 = element("a");
+    			a6.textContent = "Ganesan Karuppaiya.";
+    			t25 = space();
     			div8 = element("div");
-    			a10 = element("a");
+    			a7 = element("a");
     			span4 = element("span");
-    			t32 = space();
-    			a11 = element("a");
+    			t26 = space();
+    			a8 = element("a");
     			span5 = element("span");
-    			t33 = space();
-    			a12 = element("a");
+    			t27 = space();
+    			a9 = element("a");
     			span6 = element("span");
-    			t34 = space();
-    			a13 = element("a");
+    			t28 = space();
+    			a10 = element("a");
     			span7 = element("span");
     			attr_dev(a0, "href", "index.html");
     			attr_dev(a0, "class", "animsition-link");
-    			add_location(a0, file$a, 80, 12, 1719);
+    			add_location(a0, file$a, 81, 12, 1732);
     			attr_dev(div0, "class", "site-logo");
     			add_location(div0, file$a, 79, 10, 1683);
     			attr_dev(div1, "class", "col-sm-3 col-3");
     			add_location(div1, file$a, 78, 8, 1644);
     			attr_dev(span0, "class", "hamburger-inner");
-    			add_location(span0, file$a, 88, 14, 2037);
+    			add_location(span0, file$a, 89, 14, 2050);
     			attr_dev(span1, "class", "hamburger-box");
-    			add_location(span1, file$a, 87, 12, 1994);
+    			add_location(span1, file$a, 88, 12, 2007);
     			attr_dev(button, "class", "hamburger hamburger--spin toggle-menu ml-auto js-toggle-menu");
     			attr_dev(button, "type", "button");
-    			add_location(button, file$a, 84, 10, 1866);
+    			add_location(button, file$a, 85, 10, 1879);
     			attr_dev(a1, "href", "index.html");
     			attr_dev(a1, "class", "animsition-link");
-    			add_location(a1, file$a, 94, 16, 2294);
+    			add_location(a1, file$a, 95, 16, 2307);
     			attr_dev(li0, "class", "d-md-none d-block active");
-    			add_location(li0, file$a, 93, 14, 2240);
+    			add_location(li0, file$a, 94, 14, 2253);
     			attr_dev(a2, "href", "work.html");
     			attr_dev(a2, "class", "animsition-link");
-    			add_location(a2, file$a, 97, 16, 2403);
-    			add_location(li1, file$a, 96, 14, 2382);
-    			attr_dev(a3, "href", "about.html");
-    			attr_dev(a3, "class", "animsition-link");
-    			add_location(a3, file$a, 100, 16, 2511);
-    			add_location(li2, file$a, 99, 14, 2490);
-    			attr_dev(a4, "href", "blog.html");
-    			attr_dev(a4, "class", "animsition-link");
-    			add_location(a4, file$a, 103, 16, 2621);
-    			add_location(li3, file$a, 102, 14, 2600);
-    			attr_dev(a5, "href", "contact.html");
-    			attr_dev(a5, "class", "animsition-link");
-    			add_location(a5, file$a, 106, 16, 2729);
-    			add_location(li4, file$a, 105, 14, 2708);
+    			add_location(a2, file$a, 98, 16, 2416);
+    			add_location(li1, file$a, 97, 14, 2395);
     			attr_dev(ul, "class", "list-unstyled");
-    			add_location(ul, file$a, 92, 12, 2199);
+    			add_location(ul, file$a, 93, 12, 2212);
     			attr_dev(nav, "class", "templateux-menu js-templateux-menu");
     			attr_dev(nav, "role", "navigation");
-    			add_location(nav, file$a, 91, 10, 2120);
+    			add_location(nav, file$a, 92, 10, 2133);
     			attr_dev(div2, "class", "col-sm-9 col-9 text-right");
-    			add_location(div2, file$a, 83, 8, 1816);
+    			add_location(div2, file$a, 84, 8, 1829);
     			attr_dev(div3, "class", "row");
     			add_location(div3, file$a, 77, 6, 1618);
     			attr_dev(div4, "class", "container-fluid");
@@ -12779,62 +12680,62 @@ var app = (function () {
     			attr_dev(main, "data-animsition-out-class", "fade-out");
     			add_location(main, file$a, 74, 0, 1420);
     			attr_dev(b, "data-superlatives", "");
-    			add_location(b, file$a, 130, 35, 3355);
+    			add_location(b, file$a, 125, 10, 3069);
     			attr_dev(span2, "class", "words-1");
-    			add_location(span2, file$a, 130, 8, 3328);
+    			add_location(span2, file$a, 123, 8, 3021);
     			attr_dev(span3, "class", "words-2");
-    			add_location(span3, file$a, 131, 8, 3421);
-    			add_location(h2, file$a, 129, 6, 3315);
+    			add_location(span3, file$a, 128, 8, 3153);
+    			add_location(h2, file$a, 122, 6, 3008);
     			attr_dev(div5, "class", "cta-inner");
-    			add_location(div5, file$a, 128, 4, 3285);
+    			add_location(div5, file$a, 121, 4, 2978);
     			attr_dev(div6, "class", "container-fluid");
-    			add_location(div6, file$a, 127, 2, 3251);
-    			attr_dev(a6, "class", "templateux-section templateux-cta animsition-link mt-5 aos-init\n  aos-animate");
-    			attr_dev(a6, "href", "contact.html");
-    			attr_dev(a6, "data-aos", "fade-up");
-    			add_location(a6, file$a, 122, 0, 3114);
-    			add_location(br0, file$a, 141, 54, 3727);
-    			attr_dev(a7, "href", "hhttps://svelte.dev/");
-    			attr_dev(a7, "target", "_blank");
-    			add_location(a7, file$a, 143, 10, 3785);
-    			attr_dev(a8, "href", "https://netlify.com");
-    			attr_dev(a8, "target", "_blank");
-    			add_location(a8, file$a, 145, 10, 3879);
-    			add_location(br1, file$a, 147, 10, 3959);
-    			attr_dev(a9, "href", "https://ganesan.xyz");
-    			attr_dev(a9, "target", "_blank");
-    			add_location(a9, file$a, 149, 10, 4007);
-    			add_location(p, file$a, 140, 8, 3669);
+    			add_location(div6, file$a, 120, 2, 2944);
+    			attr_dev(a3, "class", "templateux-section templateux-cta animsition-link mt-5 aos-init\n  aos-animate");
+    			attr_dev(a3, "href", "contact.html");
+    			attr_dev(a3, "data-aos", "fade-up");
+    			add_location(a3, file$a, 115, 0, 2807);
+    			add_location(br0, file$a, 139, 10, 3469);
+    			attr_dev(a4, "href", "hhttps://svelte.dev/");
+    			attr_dev(a4, "target", "_blank");
+    			add_location(a4, file$a, 141, 10, 3528);
+    			attr_dev(a5, "href", "https://netlify.com");
+    			attr_dev(a5, "target", "_blank");
+    			add_location(a5, file$a, 143, 10, 3622);
+    			add_location(br1, file$a, 145, 10, 3702);
+    			attr_dev(a6, "href", "https://ganesan.xyz");
+    			attr_dev(a6, "target", "_blank");
+    			add_location(a6, file$a, 147, 10, 3750);
+    			add_location(p, file$a, 137, 8, 3401);
     			attr_dev(div7, "class", "col-md-6 text-md-left text-center");
-    			add_location(div7, file$a, 139, 6, 3613);
+    			add_location(div7, file$a, 136, 6, 3345);
     			attr_dev(span4, "class", "icon-facebook2");
-    			add_location(span4, file$a, 154, 10, 4215);
+    			add_location(span4, file$a, 152, 10, 3958);
+    			attr_dev(a7, "href", "#");
+    			attr_dev(a7, "class", "p-3");
+    			add_location(a7, file$a, 151, 8, 3923);
+    			attr_dev(span5, "class", "icon-twitter2");
+    			add_location(span5, file$a, 155, 10, 4046);
+    			attr_dev(a8, "href", "#");
+    			attr_dev(a8, "class", "p-3");
+    			add_location(a8, file$a, 154, 8, 4011);
+    			attr_dev(span6, "class", "icon-dribbble2");
+    			add_location(span6, file$a, 158, 10, 4133);
+    			attr_dev(a9, "href", "#");
+    			attr_dev(a9, "class", "p-3");
+    			add_location(a9, file$a, 157, 8, 4098);
+    			attr_dev(span7, "class", "icon-instagram");
+    			add_location(span7, file$a, 161, 10, 4221);
     			attr_dev(a10, "href", "#");
     			attr_dev(a10, "class", "p-3");
-    			add_location(a10, file$a, 153, 8, 4180);
-    			attr_dev(span5, "class", "icon-twitter2");
-    			add_location(span5, file$a, 157, 10, 4303);
-    			attr_dev(a11, "href", "#");
-    			attr_dev(a11, "class", "p-3");
-    			add_location(a11, file$a, 156, 8, 4268);
-    			attr_dev(span6, "class", "icon-dribbble2");
-    			add_location(span6, file$a, 160, 10, 4390);
-    			attr_dev(a12, "href", "#");
-    			attr_dev(a12, "class", "p-3");
-    			add_location(a12, file$a, 159, 8, 4355);
-    			attr_dev(span7, "class", "icon-instagram");
-    			add_location(span7, file$a, 163, 10, 4478);
-    			attr_dev(a13, "href", "#");
-    			attr_dev(a13, "class", "p-3");
-    			add_location(a13, file$a, 162, 8, 4443);
+    			add_location(a10, file$a, 160, 8, 4186);
     			attr_dev(div8, "class", "col-md-6 text-md-right text-center footer-social");
-    			add_location(div8, file$a, 152, 6, 4109);
+    			add_location(div8, file$a, 150, 6, 3852);
     			attr_dev(div9, "class", "row");
-    			add_location(div9, file$a, 138, 4, 3589);
+    			add_location(div9, file$a, 135, 4, 3321);
     			attr_dev(div10, "class", "container-fluid");
-    			add_location(div10, file$a, 137, 2, 3555);
+    			add_location(div10, file$a, 134, 2, 3287);
     			attr_dev(footer, "class", "templateux-footer");
-    			add_location(footer, file$a, 136, 0, 3518);
+    			add_location(footer, file$a, 133, 0, 3250);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -12860,59 +12761,50 @@ var app = (function () {
     			append_dev(ul, t4);
     			append_dev(ul, li1);
     			append_dev(li1, a2);
-    			append_dev(ul, t6);
-    			append_dev(ul, li2);
-    			append_dev(li2, a3);
-    			append_dev(ul, t8);
-    			append_dev(ul, li3);
-    			append_dev(li3, a4);
-    			append_dev(ul, t10);
-    			append_dev(ul, li4);
-    			append_dev(li4, a5);
-    			append_dev(main, t12);
+    			append_dev(main, t6);
     			mount_component(router, main, null);
-    			insert_dev(target, t13, anchor);
-    			insert_dev(target, a6, anchor);
-    			append_dev(a6, div6);
+    			insert_dev(target, t7, anchor);
+    			insert_dev(target, a3, anchor);
+    			append_dev(a3, div6);
     			append_dev(div6, div5);
     			append_dev(div5, h2);
     			append_dev(h2, span2);
-    			append_dev(span2, t14);
+    			append_dev(span2, t8);
     			append_dev(span2, b);
-    			append_dev(span2, t17);
-    			append_dev(h2, t18);
+    			append_dev(span2, t11);
+    			append_dev(h2, t12);
     			append_dev(h2, span3);
-    			insert_dev(target, t20, anchor);
+    			insert_dev(target, t14, anchor);
     			insert_dev(target, footer, anchor);
     			append_dev(footer, div10);
     			append_dev(div10, div9);
     			append_dev(div9, div7);
     			append_dev(div7, p);
-    			append_dev(p, t21);
+    			append_dev(p, t15);
     			append_dev(p, br0);
-    			append_dev(p, t22);
-    			append_dev(p, a7);
-    			append_dev(p, t24);
-    			append_dev(p, a8);
-    			append_dev(p, t26);
+    			append_dev(p, t16);
+    			append_dev(p, a4);
+    			append_dev(p, t18);
+    			append_dev(p, a5);
+    			append_dev(p, t20);
     			append_dev(p, br1);
-    			append_dev(p, t27);
-    			append_dev(p, t28);
-    			append_dev(p, t29);
-    			append_dev(p, a9);
-    			append_dev(div9, t31);
+    			append_dev(p, t21);
+    			append_dev(p, t22);
+    			append_dev(p, t23);
+    			append_dev(p, a6);
+    			append_dev(div9, t25);
     			append_dev(div9, div8);
+    			append_dev(div8, a7);
+    			append_dev(a7, span4);
+    			append_dev(div8, t26);
+    			append_dev(div8, a8);
+    			append_dev(a8, span5);
+    			append_dev(div8, t27);
+    			append_dev(div8, a9);
+    			append_dev(a9, span6);
+    			append_dev(div8, t28);
     			append_dev(div8, a10);
-    			append_dev(a10, span4);
-    			append_dev(div8, t32);
-    			append_dev(div8, a11);
-    			append_dev(a11, span5);
-    			append_dev(div8, t33);
-    			append_dev(div8, a12);
-    			append_dev(a12, span6);
-    			append_dev(div8, t34);
-    			append_dev(div8, a13);
-    			append_dev(a13, span7);
+    			append_dev(a10, span7);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
@@ -12936,9 +12828,9 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			destroy_component(router);
-    			if (detaching) detach_dev(t13);
-    			if (detaching) detach_dev(a6);
-    			if (detaching) detach_dev(t20);
+    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(a3);
+    			if (detaching) detach_dev(t14);
     			if (detaching) detach_dev(footer);
     		}
     	};
