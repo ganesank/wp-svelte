@@ -3,6 +3,20 @@
 </script>
 
 <style>
+
+.boxflex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boxflex.full {
+  position:absolute;
+  top:0;
+  left:0;
+  width: 100vw;
+  height:100vh;
+
+}
   .loader {
     width: 130px;
     height: 170px;
@@ -165,7 +179,7 @@
   }
 </style>
 
-
+<div class={`boxflex ${position}`}>
 <div class="loader">
   <span class="box" />
   <span class="box" />
@@ -265,4 +279,5 @@
     </svg>
   </div>
   <span class="txt">LOADING CODE...</span>
+</div>
 </div>

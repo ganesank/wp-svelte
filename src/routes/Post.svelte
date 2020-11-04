@@ -14,7 +14,7 @@
   let x;
   let categories;
   let tags;
-  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/posts?slug=" + id;
+  const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/posts?slug=" + id;
   onMount(async function() {
     const unsubscribe = categoryList.subscribe((value) => {
       categories = value;

@@ -49,7 +49,7 @@ function createRedirectURL() {
     },
   }
 }
-export const apiUrl = 'http://ganesan.xyz/wp-json/wp/v2/'
+export const apiUrl = 'https://ganesan.xyz/wp-json/wp/v2/'
 export const user = createUser()
 export const redirectURL = createRedirectURL()
 export const appInfo = writable([]);

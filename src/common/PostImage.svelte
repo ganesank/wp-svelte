@@ -7,7 +7,7 @@
   export let size;
 
   export let alt;
-  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/media/" + image;
+  const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/media/" + image;
   let src = "";
   onMount(async function() {
     if (image) {

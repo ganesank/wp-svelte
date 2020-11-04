@@ -9,7 +9,7 @@
   
     let y;
     let x;
-    const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/portfolio?slug=" + id;
+    const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/portfolio?slug=" + id;
     onMount(async function() {
       const response = await fetch(apiUrl);
       const dataArr = await response.json();

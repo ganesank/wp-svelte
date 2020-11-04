@@ -6,6 +6,9 @@
   import Home from "./routes/Home.svelte";
   import Page from "./routes/Page.svelte";
   import Blog from "./routes/Blog.svelte";
+  import Category from "./routes/Category.svelte";
+  import Tag from "./routes/Tag.svelte";
+  
   import Post from "./routes/Post.svelte";
   import Portfolio from "./routes/Portfolio.svelte";
   import Public from "./routes/Public.svelte";
@@ -73,7 +76,7 @@
   $: username = $user !== null ? $user.username : " there!";
   AOS.init();
 
-  const appUrl = "http://ganesan.xyz/wp-json/";
+  const appUrl = "https://ganesan.xyz/wp-json/";
   const usersUrl = "wp/v2/users";
   const categoryUrl = "wp/v2/categories";
   const tagsUrl = "wp/v2/tags";
@@ -173,6 +176,14 @@
       <Route path="/page/:id" component={Page} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:page" component={Blog} />
+
+      <Route path="/category/:category" component={Category} />
+      <Route path="/category/:category/:page" component={Category} />
+
+      
+      <Route path="/tags/:tag" component={Tag} />
+      <Route path="/tags/:tag/:page" component={Tag} />
+
       <Route path="/post/:id" component={Post} />
       <Route path="/portfolio" component={Portfolio} />
       <Route path="/portfolio/:id" component={Portfolio} />
