@@ -7,7 +7,6 @@
   import PostImage from "../common/PostImage.svelte";
   export let location;
   $: location = location;
-  console.log("role", location);
   export let page;
   let posts = [];
   let y;
@@ -46,7 +45,8 @@
     <div class="row">
       {#if posts && posts.length > 0}
         {#each posts as post}
-          <div class="col-md-6 aos-init aos-animate" data-aos="fade-up">
+          <div class="col-md-6 aos-init aos-animate" data-aos="fade-up"
+          data-aos-delay="200">
             <Link
               to={`post/${post.slug}`}
               css="post animsition-link aos-init"

@@ -12,11 +12,9 @@
   let x;
   const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/pages?slug=" + id;
   onMount(async function() {
-    console.log("role", apiUrl);
     const response = await fetch(apiUrl);
     const dataArr = await response.json();
     data = dataArr[0];
-    console.log(data);
   });
 </script>
 
@@ -42,8 +40,7 @@
           {/if}
         </h1>
         <p class="lead">
-          We are experts, engineers, authors, speakers, artists who creates
-          astounding products for people.
+          
         </p>
         <a href="#next" class="go-down js-smoothscroll" />
       </div>

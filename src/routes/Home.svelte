@@ -12,7 +12,6 @@
   const postApiUrl = "https://ganesan.xyz/wp-json/wp/v2/posts";
   const portApiUrl = "https://ganesan.xyz/wp-json/wp/v2/portfolio";
   onMount(async function() {
-    console.log("role", postApiUrl);
     const postresponse = await fetch(postApiUrl);
     const postsall = await postresponse.json();
     posts = postsall.slice(0, 6);
@@ -167,13 +166,13 @@
 
           {#if portfolio && portfolio.length > 0}
             {#each portfolio as post}
-              <div class="col-lg-6">
+              <div class="col-lg-6" data-aos="fade-up"
+              data-aos-delay="200">
                 <Link
                   to={`portfolio/${post.slug}`}
                   css="post animsition-link aos-init"
                   href="blog-single.html"
-                  data-aos="fade-up"
-                  data-aos-delay="200">
+                  >
                   <figure>
                     <PostImage
                       size="medium_large"
@@ -222,13 +221,13 @@
 
           {#if posts && posts.length > 0}
             {#each posts as post}
-              <div class="col-lg-6">
+              <div class="col-lg-6" data-aos="fade-up"
+              data-aos-delay="200">
                 <Link
                   to={`post/${post.slug}`}
                   css="post animsition-link aos-init"
                   href="blog-single.html"
-                  data-aos="fade-up"
-                  data-aos-delay="200">
+                  >
                   <figure>
                     <PostImage
                       size="medium_large"

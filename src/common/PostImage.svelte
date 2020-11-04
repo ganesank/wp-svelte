@@ -24,7 +24,7 @@
   <img {src} {alt} class="img-fluid" />
 {:else}
   <img
-    src={`http://placehold.jp/24/dc3545/ffffff/800x500.png?text=${alt}`}
+    src={`http://placehold.jp/24/dedede/ffffff/800x500.png?text=${alt}`}
     {alt}
     class="img-fluid" />
 {/if}

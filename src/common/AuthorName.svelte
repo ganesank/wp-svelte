@@ -1,19 +1,17 @@
 <script>
-  import { onMount } from "svelte";
+  import { userList } from "../store";
   export let author;
-
-  const apiUrl = "http://ganesan.xyz/wp-json/wp/v2/users/" + author;
   let name = "";
-  console.log(author)
-  onMount(async function() {
-    if (author) {
-      const response = await fetch(apiUrl);
-      const     data = await response.json();
-      if (data && data.name) {
-        name = data.name;
-      }
-    }
+  let allUsers;
+  const unsubscribe = userList.subscribe((value) => {
+    allUsers = value;
   });
+  if (allUsers && allUsers.length > 0) {
+    let obj = allUsers.find((o) => o.id === author);
+    if (obj && obj.name) {
+      name = obj.name;
+    }
+  }
 </script>
 
 <span>{name}</span>
