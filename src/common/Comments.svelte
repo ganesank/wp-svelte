@@ -25,7 +25,7 @@
       </div>
       <div class="comment-body">
         <h3>{@html comment.author_name}</h3>
-        <div class="meta">{moment(comment.date).format('MMM DD, YYYY')} at {moment(comment.date).format('HH : MM')}</div>
+        <div class="meta">{moment(comment.date).format('MMM DD, YYYY')} at {moment(comment.date).format('HH:MM')}</div>
         {@html comment.content.rendered}
 
       </div>

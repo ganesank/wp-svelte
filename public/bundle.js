@@ -10566,7 +10566,7 @@ var app = (function () {
     	let t2_value = moment(/*comment*/ ctx[4].date).format("MMM DD, YYYY") + "";
     	let t2;
     	let t3;
-    	let t4_value = moment(/*comment*/ ctx[4].date).format("HH : MM") + "";
+    	let t4_value = moment(/*comment*/ ctx[4].date).format("HH:MM") + "";
     	let t4;
     	let t5;
     	let html_tag;
@@ -10616,7 +10616,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*list*/ 1 && raw0_value !== (raw0_value = /*comment*/ ctx[4].author_name + "")) h3.innerHTML = raw0_value;			if (dirty & /*list*/ 1 && t2_value !== (t2_value = moment(/*comment*/ ctx[4].date).format("MMM DD, YYYY") + "")) set_data_dev(t2, t2_value);
-    			if (dirty & /*list*/ 1 && t4_value !== (t4_value = moment(/*comment*/ ctx[4].date).format("HH : MM") + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*list*/ 1 && t4_value !== (t4_value = moment(/*comment*/ ctx[4].date).format("HH:MM") + "")) set_data_dev(t4, t4_value);
     			if (dirty & /*list*/ 1 && raw1_value !== (raw1_value = /*comment*/ ctx[4].content.rendered + "")) html_tag.p(raw1_value);
     		},
     		d: function destroy(detaching) {

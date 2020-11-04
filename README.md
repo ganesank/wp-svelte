@@ -1,26 +1,73 @@
-# Netlify Identity Demo in Svelte
+# Svelte with WordPress API
+ 
+Example of Svelte application with WordPress REST API
 
-## Introduction
+## [Live Demo](https://react-with-wordpress.netlify.com/)
 
-**Features:**
 
-- [Svelte v3](https://svelte.dev/)
-- [svelte-routing](https://github.com/EmilTholin/svelte-routing) (A declarative Svelte routing library with SSR support)
-- [Netlify Identiy Widget](https://github.com/netlify/netlify-identity-widget/)
-- [Netlify](https://www.netlify.com) (hosting)
+Svelte Svelte with WordPress API of a Single Page Application which built over Svelte, Bootstrap using Wordpress Rest API.
+This code can Be used as boilerplate for Svelte Application Development and as ready use Web development.
 
-This project was bootstrapped with the starter Svelte template by running `npx degit sveltejs/template <PROJECT_NAME>` and uses Netlify Identity for authentication. It was influenced by the the [React example](https://github.com/netlify/netlify-identity-widget/tree/master/example/react) by [@sw-yx](https://github.com/sw-yx) and the [Vue example](https://github.com/whizjs/netlify-identity-demo-vue) by [@medmin](https://github.com/medmin)
 
-### Local Storage
+## Getting Started
+- Install Nodejs from [Nodejs Official Page](https://nodejs.org/en/)
+- Clone this repo in `git clone https://github.com/ganesank/wp-svelte`
+- Open your terminal
+- Navigate to the project and `git checkout branchname`
+- Run `npm install` or `yarn install` if you use [Yarn](https://yarnpkg.com/en/)
+- Run `npm run dev` or `yarn dev` to start a local development server
+- Navigate to `http://localhost:5000` or - A new tab will be opened in your browser
 
-This example uses the `gotrue.user` key in Local Storage to determine if a user is already signed in and then stores that in a Svelte store. Since Netlify Identity does that already it means we don't have to maintain our own Local Storage info.
+You can also run additional npm tasks such as
+- `npm run build` to build your app for production
+- `npm run lint` to run linting.
 
-## Redirects
+## Prerequisites
 
-The functionality of redirecting a user after logging in to whichever protected page they were coming from is mocked up in the Protected route by storing a redirect URL stored in a Svelte store. 
+You must have Node.js and npm installed on your machine. This project was built against the following versions:
 
-## Gotchas
+- Node v12.6.0
+- npm v6.9.0
 
-If you are developing with the Netlify Identity Widget locally you will be prompted for a deployed Netlify Identity site (more info in the [Localhost section](https://github.com/netlify/netlify-identity-widget#localhost) of the Netlify Identity Widget README). Sometimes this causes issues with email verification or confirmation and you may need to reset the site.
+## Advantages!
 
-To clear the locally stored Netlify Identity site you previously entered, execute `localStorage.removeItem('netlifySiteURL');` in your window.
+  - SPA based on Counter Component Developemnt 
+  -  reactive declarations with variables which automatically computes the changes
+  -  executes statements reactively when a value changes
+  -  feasibility of multiple logic and conditional statements
+  -  No Virtual DOM
+  -  Significantly less boilerplate and better performance
+  -  Options to utilize the data using  **props**, **Contexts**, **Stores** & **Module Scope**
+  -  Lifecycle functions to performe before and after mount, after update and on destroy
+## Features and RoadMap
+
+- [x] CRUD operation with WordPress REST API
+- [x] Accessing public and private routes
+- [x] Handing WordPress REST API custom end points
+- [x] Pagination for blog and other post types
+- [ ] Authentication with JWT ( Login Logout )
+- [ ] User Login and Managment
+
+
+## Configuration
+
+Add your wordPress siteUrl in `src/client-config.js`
+
+```ruby
+const clientConfig = {
+	siteUrl: 'http://localhost:8888/wordpress'
+};
+
+export default clientConfig;
+``` 
+
+
+## License
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
