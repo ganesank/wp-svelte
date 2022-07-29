@@ -8967,7 +8967,7 @@ var app = (function () {
     	let { image } = $$props;
     	let { size } = $$props;
     	let { alt } = $$props;
-    	const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/media/" + image;
+    	const apiUrl = "https://ganesankar.co.in/wp-json/wp/v2/media/" + image;
     	let src = "";
 
     	onMount(async function () {
@@ -10313,8 +10313,8 @@ var app = (function () {
     	return block;
     }
 
-    const postApiUrl = "https://ganesan.xyz/wp-json/wp/v2/posts";
-    const portApiUrl = "https://ganesan.xyz/wp-json/wp/v2/portfolio";
+    const postApiUrl = "https://ganesankar.co.in/wp-json/wp/v2/posts";
+    const portApiUrl = "https://ganesankar.co.in/wp-json/wp/v2/portfolio";
 
     function instance$6($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -10625,7 +10625,7 @@ var app = (function () {
     	validate_slots("Comments", slots, []);
     	let list = [];
     	let { id } = $$props;
-    	const apiUrl = "http://www.ganesan.xyz/wp-json/wp/v2/comments?post=" + id;
+    	const apiUrl = "http://www.ganesankar.co.in/wp-json/wp/v2/comments?post=" + id;
     	let src = "";
 
     	onMount(async function () {
@@ -11052,7 +11052,7 @@ var app = (function () {
     	let data = [];
     	let y;
     	let x;
-    	const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/pages?slug=" + id;
+    	const apiUrl = "https://ganesankar.co.in/wp-json/wp/v2/pages?slug=" + id;
 
     	onMount(async function () {
     		const response = await fetch(apiUrl);
@@ -11938,7 +11938,7 @@ var app = (function () {
     	let y;
     	let x;
     	let pagination = page || 1;
-    	const postApiUrl = `https://ganesan.xyz/wp-json/wp/v2/posts?per_page=10&page=${pagination}`;
+    	const postApiUrl = `https://ganesankar.co.in/wp-json/wp/v2/posts?per_page=10&page=${pagination}`;
 
     	onMount(async function () {
     		const postresponse = await fetch(postApiUrl);
@@ -12887,7 +12887,7 @@ var app = (function () {
     		if (categories && category) {
     			const id = fromArray(categories, "slug", category, "id");
     			$$invalidate(3, pageTitle = fromArray(categories, "slug", category, "name"));
-    			const postApiUrl = `https://ganesan.xyz/wp-json/wp/v2/posts?categories=${id}&per_page=10&page=${pagination}`;
+    			const postApiUrl = `https://ganesankar.co.in/wp-json/wp/v2/posts?categories=${id}&per_page=10&page=${pagination}`;
     			const postresponse = await fetch(postApiUrl);
     			const postsall = await postresponse.json();
     			$$invalidate(0, posts = postsall);
@@ -13853,7 +13853,7 @@ var app = (function () {
     		if (categories && tag) {
     			const id = fromArray(categories, "slug", tag, "id");
     			$$invalidate(3, pageTitle = fromArray(categories, "slug", tag, "name"));
-    			const postApiUrl = `https://ganesan.xyz/wp-json/wp/v2/posts?tags=${id}&per_page=10&page=${pagination}`;
+    			const postApiUrl = `https://ganesankar.co.in/wp-json/wp/v2/posts?tags=${id}&per_page=10&page=${pagination}`;
     			const postresponse = await fetch(postApiUrl);
     			const postsall = await postresponse.json();
     			$$invalidate(0, posts = postsall);
@@ -15428,7 +15428,7 @@ var app = (function () {
     	let x;
     	let categories;
     	let tags;
-    	const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/posts?slug=" + id;
+    	const apiUrl = "https://ganesankar.co.in/wp-json/wp/v2/posts?slug=" + id;
 
     	onMount(async function () {
     		const unsubscribe = categoryList.subscribe(value => {
@@ -15976,7 +15976,7 @@ var app = (function () {
     	let data = [];
     	let y;
     	let x;
-    	const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/portfolio?slug=" + id;
+    	const apiUrl = "https://ganesankar.co.in/wp-json/wp/v2/portfolio?slug=" + id;
 
     	onMount(async function () {
     		const response = await fetch(apiUrl);
@@ -17479,7 +17479,7 @@ var app = (function () {
     			attr_dev(a2, "target", "_blank");
     			add_location(a2, file$h, 223, 12, 6271);
     			add_location(br1, file$h, 225, 12, 6355);
-    			attr_dev(a3, "href", "https://ganesan.xyz");
+    			attr_dev(a3, "href", "https://ganesankar.co.in");
     			attr_dev(a3, "target", "_blank");
     			add_location(a3, file$h, 227, 12, 6407);
     			add_location(p, file$h, 217, 10, 6038);
@@ -18422,7 +18422,7 @@ var app = (function () {
     	return block;
     }
 
-    const appUrl = "https://ganesan.xyz/wp-json/";
+    const appUrl = "https://ganesankar.co.in/wp-json/";
     const usersUrl = "wp/v2/users";
     const categoryUrl = "wp/v2/categories";
     const tagsUrl = "wp/v2/tags";

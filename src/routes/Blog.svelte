@@ -12,7 +12,7 @@
   let y;
   let x;
   let pagination = page || 1;
-  const postApiUrl = `https://ganesan.xyz/wp-json/wp/v2/posts?per_page=10&page=${pagination}`;
+  const postApiUrl = `https://ganesankar.co.in/wp-json/wp/v2/posts?per_page=10&page=${pagination}`;
   onMount(async function() {
     const postresponse = await fetch(postApiUrl);
     const postsall = await postresponse.json();

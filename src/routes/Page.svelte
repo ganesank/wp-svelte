@@ -10,7 +10,7 @@
 
   let y;
   let x;
-  const apiUrl = "https://ganesan.xyz/wp-json/wp/v2/pages?slug=" + id;
+  const apiUrl = "https://ganesankar.co.in/wp-json/wp/v2/pages?slug=" + id;
   onMount(async function() {
     const response = await fetch(apiUrl);
     const dataArr = await response.json();

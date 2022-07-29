@@ -4,7 +4,7 @@
   let list = [];
   export let id;
 
-  const apiUrl = "http://www.ganesan.xyz/wp-json/wp/v2/comments?post=" + id;
+  const apiUrl = "http://www.ganesankar.co.in/wp-json/wp/v2/comments?post=" + id;
   let src = "";
   onMount(async function() {
     const response = await fetch(apiUrl);

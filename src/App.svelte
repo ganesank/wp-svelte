@@ -76,7 +76,7 @@
   $: username = $user !== null ? $user.username : " there!";
   AOS.init();
 
-  const appUrl = "https://ganesan.xyz/wp-json/";
+  const appUrl = "https://ganesankar.co.in/wp-json/";
   const usersUrl = "wp/v2/users";
   const categoryUrl = "wp/v2/categories";
   const tagsUrl = "wp/v2/tags";
@@ -225,7 +225,7 @@
             .
             <br />
             Copyright &copy; {n}
-            <a href="https://ganesan.xyz" target="_blank">
+            <a href="https://ganesankar.co.in" target="_blank">
               Ganesan Karuppaiya.
             </a>
           </p>

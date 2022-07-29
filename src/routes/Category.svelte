@@ -22,7 +22,7 @@
     if (categories && category) {
       const id = fromArray(categories, "slug", category, "id");
       pageTitle = fromArray(categories, "slug", category, "name");
-      const postApiUrl = `https://ganesan.xyz/wp-json/wp/v2/posts?categories=${id}&per_page=10&page=${pagination}`;
+      const postApiUrl = `https://ganesankar.co.in/wp-json/wp/v2/posts?categories=${id}&per_page=10&page=${pagination}`;
       const postresponse = await fetch(postApiUrl);
       const postsall = await postresponse.json();
       posts = postsall;

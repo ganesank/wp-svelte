@@ -9,8 +9,8 @@
   let portfolio = [];
   let y;
   let x;
-  const postApiUrl = "https://ganesan.xyz/wp-json/wp/v2/posts";
-  const portApiUrl = "https://ganesan.xyz/wp-json/wp/v2/portfolio";
+  const postApiUrl = "https://ganesankar.co.in/wp-json/wp/v2/posts";
+  const portApiUrl = "https://ganesankar.co.in/wp-json/wp/v2/portfolio";
   onMount(async function() {
     const postresponse = await fetch(postApiUrl);
     const postsall = await postresponse.json();
